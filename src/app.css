@@ -1,0 +1,7 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/forms";
+
+@theme {
+  --color-primary: #006663;
+  --font-sans: 'Noto Sans Thai', system-ui, sans-serif;
+}

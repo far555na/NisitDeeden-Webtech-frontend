@@ -1,5 +1,5 @@
 <script>
-	import Card from '$lib/components/card.svelte';
+	import Card from '$lib/components/Card.svelte';
 </script>
 
 <div class="flex flex-col items-center justify-center pb-7">
@@ -10,7 +10,7 @@
 <div class="pb-7 text-3xl font-bold">โปรดเลือกทำรายการ</div>
 
 <div class="flex flex-wrap gap-x-10 gap-y-7">
-	<Card href="">
+	<Card href="/student/form-page">
 		<svg
 			slot="icon"
 			class="text-primary h-[100px] w-[100px]"

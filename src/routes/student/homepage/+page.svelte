@@ -33,7 +33,7 @@
 		เสนอตัวเองเป็นนิสิตดีเด่น
 	</Card>
 
-	<Card href="">
+	<Card href="/student/applications-history-page">
 		<svg
 			slot="icon"
 			class="text-primary h-[100px] w-[100px]"

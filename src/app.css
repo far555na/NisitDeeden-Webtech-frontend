@@ -3,5 +3,6 @@
 
 @theme {
   --color-primary: #006663;
+  --color-tertiary: #B3B3B3;
   --font-sans: 'Noto Sans Thai', system-ui, sans-serif;
 }

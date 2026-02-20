@@ -2,6 +2,7 @@
 	import './layout.css';
 	import favicon from '$lib/assets/favicon.svg';
 	import logo from '$lib/assets/logo.png';
+	import profile from '$lib/assets/background.png';
 	import '../app.css';
 
 	let { children } = $props();
@@ -16,7 +17,7 @@
 		<a href="" class="hover:text-primary">หลักเกณฑ์</a>
 	</div>
 	<div class="flex items-center gap-3">
-		<img class="w-10 h-10 rounded-full" src="https://icons.veryicon.com/png/o/miscellaneous/rookie-official-icon-gallery/225-default-avatar.png" alt="Profile">
+		<img class="w-10 h-10 rounded-full" src={profile} alt="Profile">
 		<div class="flex flex-col">
 			<p class="font-medium">ฉัตรชัย โชติสวัสดิ์</p>
 			<p>นิสิต</p>

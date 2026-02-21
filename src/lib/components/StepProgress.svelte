@@ -10,7 +10,7 @@
 
 <div class=" w-1/2">
 	<div
-		class="border-primary flex h-15 w-full overflow-hidden rounded-3xl border-2"
+		class="border-primary flex h-12 w-full overflow-hidden rounded-2xl border-2"
 	>
 		{#each Array(4) as _, i}
 			<div

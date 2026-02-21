@@ -1,5 +1,6 @@
 <script>
 	import Card from '$lib/components/Card.svelte';
+	import { CirclePlus, Menu } from 'lucide-svelte';
 </script>
 
 <div class="flex flex-col items-center justify-center pb-7">
@@ -11,48 +12,12 @@
 
 <div class="flex flex-wrap gap-x-10 gap-y-7">
 	<Card href="/student/form-page">
-		<svg
-			slot="icon"
-			class="text-primary h-[100px] w-[100px]"
-			aria-hidden="true"
-			xmlns="http://www.w3.org/2000/svg"
-			width="24"
-			height="24"
-			fill="none"
-			viewBox="0 0 24 24"
-		>
-			<path
-				stroke="currentColor"
-				stroke-linecap="round"
-				stroke-linejoin="round"
-				stroke-width="1"
-				d="M12 7.757v8.486M7.757 12h8.486M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-			/>
-		</svg>
-
+		<CirclePlus slot="icon" class="text-primary" size={100} strokeWidth={1.25} />
 		เสนอตัวเองเป็นนิสิตดีเด่น
 	</Card>
 
 	<Card href="/student/applications-history-page">
-		<svg
-			slot="icon"
-			class="text-primary h-[100px] w-[100px]"
-			aria-hidden="true"
-			xmlns="http://www.w3.org/2000/svg"
-			width="24"
-			height="24"
-			fill="none"
-			viewBox="0 0 24 24"
-		>
-			<path
-				stroke="currentColor"
-				stroke-linecap="round"
-				stroke-linejoin="round"
-				stroke-width="1"
-				d="M18 6H6m12 4H6m12 4H6m12 4H6"
-			/>
-		</svg>
-
+		<Menu slot="icon" class="text-primary" size={100} strokeWidth={1.25} />
 		รายการที่เคยเสนอ
 	</Card>
 </div>

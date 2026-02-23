@@ -27,6 +27,6 @@
     {required}
     {disabled}
     {readonly}
-    class={`border-0 border-b-2   p-0 m-0 ${readonly ? "border-tertiary focus:outline-none focus:ring-0 cursor-default w-auto" : "border-tertiary focus:border-primary focus:outline-none focus:ring-0 w-sm"} ${inputClass}`}
+    class={`border-0 border-b-2   p-0 m-0 ${readonly ? "border-tertiary focus:outline-none focus:ring-0 cursor-default w-auto" : "border-tertiary focus:border-primary focus:outline-none focus:ring-0 w-auto"} ${inputClass}`}
   />
 </div>

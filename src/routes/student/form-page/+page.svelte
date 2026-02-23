@@ -42,7 +42,7 @@
 			<li>- แต่งกายชุดนิสิตสุภาพ</li>
 		</ul>
 	</div>
-	<div>
+	<div class="flex-1 min-w-md">
 		<div class="text-primary pb-5 text-xl font-semibold">ข้อมูลส่วนตัว</div>
 		<FormGrid cols={2}>
 			<FormField id="student_id" name="student_id" label="รหัสนิสิต" bind:value={student_id} />

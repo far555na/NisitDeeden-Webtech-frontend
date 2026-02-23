@@ -13,7 +13,7 @@
 
 	<StepProgress step={3} />
 
-	<a href="">
+	<a href="application-detail-page">
 		<Button variant="outline">
 			ถัดไป
 			<Icon slot="right" icon="mdi:arrow-right" class="text-primary" width="24" />

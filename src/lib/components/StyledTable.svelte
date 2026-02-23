@@ -19,7 +19,7 @@
 
 <style>
 	:global(tbody td) {
-		padding: 1rem 1.5rem; /* same as px-6 py-4 */
+		padding: 0.5rem 1.5rem; /* same as px-6 py-4 */
 	}
 
     :global(tbody tr) {

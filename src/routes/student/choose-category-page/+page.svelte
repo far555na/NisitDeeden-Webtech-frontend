@@ -16,12 +16,14 @@
 
 	<StepProgress step={2} />
 
-	<a href="category-form-page">
-		<Button variant="outline">
-			ถัดไป
-			<Icon slot="right" icon="mdi:arrow-right" class="text-primary" width="24" />
-		</Button>
-	</a>
+	<div class="invisible">
+		<a href="category-form-page">
+			<Button variant="outline">
+				ถัดไป
+				<Icon slot="right" icon="mdi:arrow-right" class="text-primary" width="24" />
+			</Button>
+		</a>
+	</div>
 </div>
 
 <div class="flex items-center justify-center">
@@ -29,10 +31,18 @@
 </div>
 
 <div class="flex flex-wrap items-center justify-center gap-10">
-	{#each data.categories as category}
-		<Card href="/student/form-page">
-			<Icon slot="icon" icon={category.icon} class="text-primary" width="100" />
-			{category.name}
-		</Card>
-	{/each}
+	{#if data.categories && data.categories.length > 0}
+		{#each data.categories as category}
+			{#if category.is_active}
+				<Card href={`/student/category-form-page?category=${category.slug}`}>
+					<Icon slot="icon" icon={category.icon} class="text-primary" width="100" />
+					{category.name}
+				</Card>
+			{:else}
+				<!-- ไม่แสดง -->
+			{/if}
+		{/each}
+	{:else}
+		<p class="text-lg text-neutral-500">ขณะนี้ยังไม่มีประเภทให้เลือก</p>
+	{/if}
 </div>

@@ -1,6 +1,6 @@
 <script>
 	import Card from '$lib/components/Card.svelte';
-	import { CirclePlus, Menu } from 'lucide-svelte';
+	import Icon from '@iconify/svelte';
 </script>
 
 <div class="flex flex-col items-center justify-center pb-7">
@@ -12,12 +12,12 @@
 
 <div class="flex flex-wrap gap-x-10 gap-y-7">
 	<Card href="/student/form-page">
-		<CirclePlus slot="icon" class="text-primary" size={100} strokeWidth={1.25} />
+		<Icon slot="icon" icon="lucide:circle-plus" class="text-primary" width="100" />
 		เสนอตัวเองเป็นนิสิตดีเด่น
 	</Card>
 
 	<Card href="/student/applications-history-page">
-		<Menu slot="icon" class="text-primary" size={100} strokeWidth={1.25} />
+		<Icon slot="icon" icon="lucide:menu" class="text-primary" width="100" />
 		รายการที่เคยเสนอ
 	</Card>
 </div>

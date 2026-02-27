@@ -4,15 +4,16 @@
 	import Icon from '@iconify/svelte';
 	import profile from '$lib/assets/background.png';
 	import { goto } from '$app/navigation';
+	import UserAvatar from '$lib/components/UserAvatar.svelte';
+	import Pagination from '$lib/components/Pagination.svelte';
 
-	let open = false;
 	const { data } = $props();
 
 	function nextPage() {
 		goto(`/admin/users-list-page?page=${data.meta.current_page + 1}`);
 	}
 
-    function prevPage() {
+	function prevPage() {
 		goto(`/admin/users-list-page?page=${data.meta.current_page - 1}`);
 	}
 </script>
@@ -29,21 +30,12 @@
 		{#each data.users as user}
 			<tr>
 				<td>
-					<div class="flex items-center gap-3">
-						<img
-							class="h-10 w-10 rounded-full"
-							src={// user.profile_path
-							// 	? `http://localhost:8000/storage/${user.profile_path}`
-							// 	:
-							`${profile}`}
-							alt={user.name}
-						/>
-
-						<div class="flex flex-col">
-							<span>{user.name}</span>
-							<span class="text-xs text-neutral-500">{user.email}</span>
-						</div>
-					</div>
+					<UserAvatar
+						name={user.name}
+						email={user.email}
+						profilePath={user.profile_path}
+						fallbackImage={profile}
+					/>
 				</td>
 				<td>{user.university_id}</td>
 				<td>{user.role}</td>
@@ -64,32 +56,11 @@
 	{/if}
 </StyledTable>
 
-<div class="flex justify-center items-center gap-5 pt-5">
-	{#if data.links.prev}
-		<Button variant="outline" onclick={prevPage}>
-			<Icon slot="left" icon="mdi:chevron-double-left" width="16" />
-			<span class="text-sm">ย้อนกลับ</span>
-		</Button>
-	{:else}
-		<Button variant="outline" disabled>
-			<Icon slot="left" icon="mdi:chevron-double-left" width="16" />
-			<span class="text-sm">ย้อนกลับ</span>
-		</Button>
-	{/if}
-
-    <span class="text-primary">
-        หน้า {data.meta.current_page} / {data.meta.last_page} 
-    </span>
-
-	{#if data.links.next}
-		<Button variant="outline" onclick={nextPage}>
-			<Icon slot="right" icon="mdi:chevron-double-right" width="16" />
-			<span class="text-sm">ถัดไป</span>
-		</Button>
-	{:else}
-		<Button variant="outline" disabled>
-			<Icon slot="right" icon="mdi:chevron-double-right" width="16" />
-			<span class="text-sm">ถัดไป</span>
-		</Button>
-	{/if}
-</div>
+<Pagination
+	currentPage={data.meta.current_page}
+	lastPage={data.meta.last_page}
+	hasPrev={!!data.links.prev}
+	hasNext={!!data.links.next}
+	onPrev={prevPage}
+	onNext={nextPage}
+/>

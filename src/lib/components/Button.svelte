@@ -1,20 +1,21 @@
 <script lang="ts">
+	import { createEventDispatcher } from 'svelte';
+
 	export let type: 'button' | 'submit' = 'button';
 	export let variant: 'primary' | 'outline' | 'filled' = 'primary';
-	export let fullWidth: boolean = false;
-	export let disabled: boolean = false;
-	export let onclick: (e: MouseEvent) => void = () => {};
+	export let fullWidth = false;
+	export let disabled = false;
+
+	const dispatch = createEventDispatcher<{ click: MouseEvent }>();
 
 	const baseClass =
 		'flex h-min items-center justify-center gap-2 rounded-2xl px-5 py-3 font-medium transition';
 
 	const variants = {
 		primary: disabled ? 'text-neutral-300' : 'text-primary',
-
 		outline: disabled
 			? 'border-2 border-neutral-300 text-neutral-300'
 			: 'border-2 border-primary text-primary',
-
 		filled: disabled ? 'bg-neutral-300 text-neutral-400' : 'bg-neutral-300 text-primary'
 	};
 
@@ -24,15 +25,15 @@
 
 	function handleClick(e: MouseEvent) {
 		if (disabled) return;
-		onclick?.(e);
+		dispatch('click', e); // forward click ออกไปให้ <Button on:click=...> จับได้
 	}
 </script>
 
 <button
-	{type}
-	{disabled}
+	type={type}
+	disabled={disabled}
 	class={`${baseClass} ${variantClass} ${widthClass} ${disabledClass}`}
-	onclick={handleClick}
+	on:click={handleClick}
 >
 	<slot name="left" />
 	<slot />

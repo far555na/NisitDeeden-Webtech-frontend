@@ -50,8 +50,8 @@
 			</tr>
 		{/each}
 	{:else}
-		<tr>
-			<td colspan="5" class="py-6 text-center text-neutral-500">ไม่พบข้อมูลผู้ใช้</td>
+		<tr class="no-hover h-24">
+			<td colspan="4" class="px-20 text-center text-neutral-500">ไม่มีข้อมูล</td>
 		</tr>
 	{/if}
 </StyledTable>

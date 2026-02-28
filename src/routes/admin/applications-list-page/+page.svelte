@@ -9,7 +9,7 @@
 
 	const { data } = $props();
 
-    function nextPage() {
+	function nextPage() {
 		goto(`/admin/applications-list-page?page=${data.meta.current_page + 1}`);
 	}
 
@@ -26,36 +26,42 @@
 </div>
 
 <StyledTable headers={['ลำดับ', 'ผู้ส่งใบสมัคร', 'ประเภท', 'ผลการพิจารณา', 'วันที่ยื่นใบสมัคร']}>
-	{#each data.applications as application}
-		<tr>
-			<td>{application.id}</td>
-			<td
-				><UserAvatar
-					name={application.user.name}
-					email={application.user.email}
-					profilePath={application.user.profile_path}
-					fallbackImage={profile}
-				/>
-			</td>
-			<td>
-				{application.category.slug}
-			</td>
-			<td>
-				{application.status}
-			</td>
-			<td>
-				{application.submitted_at}
-			</td>
-			<td>
-				<div class="flex justify-end">
-					<Button variant="filled" type="button">
-						<Icon slot="left" icon="mdi:magnify" class="text-neutral-950" width="24" />
-						<div class="text-neutral-950">ตรวจสอบ</div>
-					</Button>
-				</div>
-			</td>
+	{#if data.applications && data.applications.length > 0}
+		{#each data.applications as application}
+			<tr>
+				<td>{application.id}</td>
+				<td
+					><UserAvatar
+						name={application.user.name}
+						email={application.user.email}
+						profilePath={application.user.profile_path}
+						fallbackImage={profile}
+					/>
+				</td>
+				<td>
+					{application.category.slug}
+				</td>
+				<td>
+					{application.status}
+				</td>
+				<td>
+					{application.submitted_at}
+				</td>
+				<td>
+					<div class="flex justify-end">
+						<Button variant="filled" type="button">
+							<Icon slot="left" icon="mdi:magnify" class="text-neutral-950" width="24" />
+							<div class="text-neutral-950">ตรวจสอบ</div>
+						</Button>
+					</div>
+				</td>
+			</tr>
+		{/each}
+	{:else}
+		<tr class="no-hover h-24">
+			<td colspan="4" class="px-20 text-center text-neutral-500">ไม่มีข้อมูล</td>
 		</tr>
-	{/each}
+	{/if}
 </StyledTable>
 
 <Pagination

@@ -26,7 +26,7 @@
 		background-color: oklch(98.5% 0 0); /* same as hover:bg-neutral-50 */
 	}
 
-	:global(tbody tr:hover) {
+	:global(tbody tr:not(.no-hover):hover) {
 		background-color: oklch(97% 0 0); /* same as hover:bg-neutral-100 */
 		transition: 0.2s;
 	}

@@ -8,7 +8,6 @@
 	import FileLink from '$lib/components/FileLink.svelte';
 
 	const { data } = $props();
-	const application = data.application;
 
 	function back() {
 		history.back();
@@ -35,35 +34,35 @@
 						id="student_id"
 						name="student_id"
 						label="รหัสนิสิต"
-						value={application?.user?.university_id ?? ''}
+						value={data.application?.user?.university_id ?? ''}
 						readonly
 					/>
 					<FormField
 						id="student_name"
 						name="student_name"
 						label="ชื่อ-นามสกุล"
-						value={application?.user?.name ?? ''}
+						value={data.application?.user?.name ?? ''}
 						readonly
 					/>
 					<FormField
 						id="faculty"
 						name="faculty"
 						label="คณะ"
-						value={application?.user?.faculty ?? ''}
+						value={data.application?.user?.faculty ?? ''}
 						readonly
 					/>
 					<FormField
 						id="dapartment"
 						name="dapartment"
 						label="ภาควิชา"
-						value={application?.user?.department ?? ''}
+						value={data.application?.user?.department ?? ''}
 						readonly
 					/>
 					<FormField
 						id="email"
 						name="email"
 						label="อีเมล"
-						value={application?.user?.email ?? ''}
+						value={data.application?.user?.email ?? ''}
 						readonly
 					/>
 				</FormGrid>
@@ -72,7 +71,7 @@
 
 		<div class="pt-5">
 			<div class="pb-5 text-xl font-semibold text-primary">รายละเอียด</div>
-			{#each application.values as attribute}
+			{#each data.application.values as attribute}
 				{#if !attribute.is_file}
 					<FormGrid cols={1}>
 						<FormField
@@ -108,7 +107,7 @@
 	<div class="flex flex-1 flex-col justify-between gap-5">
 		<div class="flex flex-col gap-5">
 			<div class="text-xl font-semibold text-primary">เอกสารประกอบ</div>
-			{#each application.values as attribute}
+			{#each data.application.values as attribute}
 				{#if attribute.is_file}
 					<FileLink href={attribute.value} label={attribute.label} />
 				{/if}

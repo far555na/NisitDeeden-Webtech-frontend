@@ -27,11 +27,12 @@
 		{id}
 		{name}
 		{type}
-		bind:value
+		{value}
+		on:input={(e) => (value = (e.target as HTMLInputElement).value)}
 		{placeholder}
 		{required}
 		{disabled}
 		{readonly}
-		class={`m-0 border-0   border-b-2 p-0 ${readonly ? 'border-tertiary w-auto cursor-default focus:ring-0 focus:outline-none' : 'border-tertiary focus:border-primary w-auto focus:ring-0 focus:outline-none'} ${inputClass}`}
+		class={`m-0 border-0   border-b-2 p-0 ${readonly ? 'w-auto cursor-default border-tertiary focus:ring-0 focus:outline-none' : 'w-auto border-tertiary focus:border-primary focus:ring-0 focus:outline-none'} ${inputClass}`}
 	/>
 </div>

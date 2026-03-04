@@ -11,7 +11,7 @@
 <div class="pb-7 text-3xl font-bold">โปรดเลือกทำรายการ</div>
 
 <div class="flex flex-wrap gap-x-10 gap-y-7">
-	<Card href="/student/form-page">
+	<Card href="/student/choose-category-page">
 		<Icon slot="icon" icon="lucide:circle-plus" class="text-primary" width="100" />
 		เสนอตัวเองเป็นนิสิตดีเด่น
 	</Card>

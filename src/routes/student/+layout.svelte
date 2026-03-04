@@ -17,8 +17,8 @@
 
 <Navbar
 	navItems={navItems}
-	userName={user.name}
-	role={user.role}
+	userName={user?.name}
+	role={user?.role}
 />
 
 <div class="mx-auto p-8 font-sans md:p-10">

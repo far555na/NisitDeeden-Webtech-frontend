@@ -4,17 +4,22 @@
 
 	import Card from '$lib/components/Card.svelte';
 	import Icon from '@iconify/svelte';
+	import { goto } from '$app/navigation';
 
 	const { data } = $props();
+
+	function back() {
+		goto(`/student/homepage`);
+	}
 </script>
 
 <div class="flex justify-between pb-7">
-	<Button>
+	<Button on:click={back}>
 		<Icon slot="left" icon="mdi:arrow-left" class="text-primary" width="24" />
 		ย้อนกลับ
 	</Button>
 
-	<StepProgress step={2} />
+	<StepProgress step={1} />
 
 	<div class="invisible">
 		<a href="category-form-page">

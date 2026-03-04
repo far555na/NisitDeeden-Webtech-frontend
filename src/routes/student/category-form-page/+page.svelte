@@ -48,20 +48,20 @@
 		ย้อนกลับ
 	</Button>
 
-	<StepProgress step={3} />
+	<StepProgress step={2} />
 
-	<a href="application-detail-page">
+	<div class="invisible">
 		<Button variant="outline">
 			ถัดไป
 			<Icon slot="right" icon="mdi:arrow-right" class="text-primary" width="24" />
 		</Button>
-	</a>
+	</div>
 </div>
 
 <form method="POST" enctype="multipart/form-data" use:enhance={handleSubmit}>
 	<input type="hidden" name="category_id" value={data.category.id} />
 	<div class="mx-auto max-w-7xl">
-		<p class="text-primary pb-7 text-3xl font-bold">ประเภท: {data.category.name}</p>
+		<p class="pb-7 text-3xl font-bold text-primary">ประเภท: {data.category.name}</p>
 
 		<div class="flex flex-col gap-5">
 			<div class="text-2xl font-semibold">รายละเอียด</div>

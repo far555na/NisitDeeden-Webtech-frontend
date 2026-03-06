@@ -9,6 +9,13 @@ export function requireAuth(event: RequestEvent) {
 
 export function handleAuthError(event: RequestEvent, err: any) {
 	const status = err?.response?.status;
+
+	console.log('AUTH ERROR', {
+		status,
+		url: err?.config?.url,
+		method: err?.config?.method,
+		response: err?.response?.data
+	});
 	if (status === 401 || status === 403) {
 		event.cookies.delete('token', { path: '/' });
 		event.cookies.delete('user_info', { path: '/' });

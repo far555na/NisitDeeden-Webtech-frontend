@@ -10,12 +10,12 @@ export function requireAuth(event: RequestEvent) {
 export function handleAuthError(event: RequestEvent, err: any) {
 	const status = err?.response?.status;
 
-	console.log('AUTH ERROR', {
-		status,
-		url: err?.config?.url,
-		method: err?.config?.method,
-		response: err?.response?.data
-	});
+	// console.log('AUTH ERROR', {
+	// 	status,
+	// 	url: err?.config?.url,
+	// 	method: err?.config?.method,
+	// 	response: err?.response?.data
+	// });
 	if (status === 401 || status === 403) {
 		event.cookies.delete('token', { path: '/' });
 		event.cookies.delete('user_info', { path: '/' });
@@ -37,6 +37,17 @@ export async function authedPost<T = any>(event: RequestEvent, url: string, data
 	const token = requireAuth(event);
 	try {
 		return await apiClient.post<T>(url, data, withAuth(token));
+	} catch (err) {
+		handleAuthError(event, err);
+		throw err;
+	}
+}
+
+export async function authedDelete<T = any>(event: RequestEvent, url: string) {
+	const token = requireAuth(event);
+
+	try {
+		return await apiClient.delete<T>(url, withAuth(token));
 	} catch (err) {
 		handleAuthError(event, err);
 		throw err;

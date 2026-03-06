@@ -36,12 +36,21 @@
 				<td>{application.submitted_at}</td>
 				<td>{application.status_th}</td>
 				<td>
-					<div class="flex justify-end">
+					<div class="flex justify-end gap-2">
 						<div on:click|stopPropagation>
 							<Button variant="filled" type="button" on:click={() => goToEdit(application.id)}>
-								<Icon slot="left" icon="mdi:magnify" class="text-neutral-950" width="24" />
+								<!-- <Icon slot="left" icon="mdi:magnify" class="text-neutral-950" width="24" /> -->
 								<div class="text-neutral-950">แก้ไข</div>
 							</Button>
+						</div>
+
+						<div on:click|stopPropagation>
+							<form method="POST" action="?/deleteApplication">
+								<input type="hidden" name="id" value={application.id} />
+								<Button variant="filled" type="submit">
+									<div class="text-neutral-950">ลบ</div>
+								</Button>
+							</form>
 						</div>
 					</div>
 				</td>
@@ -49,7 +58,7 @@
 		{/each}
 	{:else}
 		<tr class="no-hover h-24">
-			<td colspan="4" class="px-20 text-center text-neutral-500">ไม่มีข้อมูล</td>
+			<td colspan="6" class="px-20 text-center text-neutral-500">ไม่มีข้อมูล</td>
 		</tr>
 	{/if}
 </StyledTable>

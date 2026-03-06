@@ -3,21 +3,19 @@ import apiClient from '$lib/server/api-client.server';
 import type { Actions } from './$types';
 
 export const actions: Actions = {
-    default: async ({ request, cookies }) => {
-        const formData = await request.formData();
-        const email = formData.get('email');
-        const password = formData.get('password');
+	default: async ({ request, cookies }) => {
+		const formData = await request.formData();
+		const email = formData.get('email');
+		const password = formData.get('password');
 
         let user: any;  
         let token: string;
 
-        try {
-            const response = await apiClient.post('/login', { email, password });
+		try {
+			const response = await apiClient.post('/login', { email, password });
 
-            console.log('LOGIN RESPONSE:', response.data);
-
-            token = response.data.token;
-            user = response.data.user;
+			const token = response.data.token;
+			const user = response.data.user;
 
             cookies.set('token', token, {
                 path: '/',

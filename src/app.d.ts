@@ -8,7 +8,7 @@ declare global {
 			user: {
 				name: string;
 				email: string;
-				role: 'student' | 'head_of_department' | 'vice_dean' | 'dean' | 'committee' | 'admin';
+				role: 'STUDENT' | 'COMMITTEE' | 'ADMIN';
 			} | null; // ถ้าเป็น null แปลว่ายังไม่ได้ล็อกอิน
 		}
 		// interface PageData {}D

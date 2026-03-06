@@ -8,11 +8,16 @@ export const actions: Actions = {
         const email = formData.get('email');
         const password = formData.get('password');
 
+        let user: any;  
+        let token: string;
+
         try {
             const response = await apiClient.post('/login', { email, password });
-            
-            const token = response.data.token;
-            const user = response.data.user;
+
+            console.log('LOGIN RESPONSE:', response.data);
+
+            token = response.data.token;
+            user = response.data.user;
 
             cookies.set('token', token, {
                 path: '/',
@@ -28,7 +33,15 @@ export const actions: Actions = {
         } catch (err: any) {
             return fail(401, { message: 'อีเมลหรือรหัสผ่านไม่ถูกต้อง' });
         }
+
+        if (user.role === 'STUDENT') {
+			throw redirect(303, '/student/homepage');
+		}
+
+		if (user.role === 'COMMITTEE') {
+			throw redirect(303, '/committee/appications-list-page');
+		}
         
-        throw redirect(303, '/student/homepage');
+        throw redirect(303, '/');
     }
 };

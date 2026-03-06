@@ -27,7 +27,7 @@ pipeline {
                 sh '''
                     # Fix: Strip the 'desktop' credential store from Docker config
                     if [ -f ~/.docker/config.json ]; then
-                        sed -i 's/"credsStore":\s*"desktop"//g' ~/.docker/config.json
+                        sed -i 's/"credsStore":\\s*"desktop"//g' ~/.docker/config.json
                     fi
                     
                     ${DOCKER} compose down -v

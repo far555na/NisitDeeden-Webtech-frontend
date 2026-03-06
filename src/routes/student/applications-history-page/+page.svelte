@@ -20,7 +20,7 @@
 </script>
 
 <div class="flex justify-between pb-3">
-	<Button on:click={back}>
+	<Button onclick={back}>
 		<Icon slot="left" icon="mdi:arrow-left" class="text-primary" width="24" />
 		ย้อนกลับ
 	</Button>
@@ -29,7 +29,17 @@
 <StyledTable headers={['ปีการศึกษา', 'เทอม', 'ประเภท', 'วันที่ส่ง', 'สถานะ']}>
 	{#if data.applications && data.applications.length > 0}
 		{#each data.applications as application}
-			<tr class="cursor-pointer" on:click={() => goToDetail(application.id)}>
+			<tr 
+				class="cursor-pointer" 
+				onclick={() => goToDetail(application.id)}
+				onkeydown={(e) => {
+					if (e.key === 'Enter' || e.key === ' ') {
+						e.preventDefault();
+						goToDetail(application.id);
+					}
+				}}
+				tabindex="0"
+			>
 				<td>{application.round.academic_year}</td>
 				<td>{application.round.semester}</td>
 				<td>{application.category.name}</td>
@@ -37,14 +47,21 @@
 				<td>{application.status_th}</td>
 				<td>
 					<div class="flex justify-end gap-2">
-						<div on:click|stopPropagation>
-							<Button variant="filled" type="button" on:click={() => goToEdit(application.id)}>
-								<!-- <Icon slot="left" icon="mdi:magnify" class="text-neutral-950" width="24" /> -->
+						<div 
+							role="presentation" 
+							onclick={(e) => e.stopPropagation()} 
+							onkeydown={(e) => e.stopPropagation()}
+						>
+							<Button variant="filled" type="button" onclick={() => goToEdit(application.id)}>
 								<div class="text-neutral-950">แก้ไข</div>
 							</Button>
 						</div>
 
-						<div on:click|stopPropagation>
+						<div 
+							role="presentation" 
+							onclick={(e) => e.stopPropagation()} 
+							onkeydown={(e) => e.stopPropagation()}
+						>
 							<form method="POST" action="?/deleteApplication">
 								<input type="hidden" name="id" value={application.id} />
 								<Button variant="filled" type="submit">

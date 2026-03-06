@@ -14,8 +14,8 @@ export const actions: Actions = {
 		try {
 			const response = await apiClient.post('/login', { email, password });
 
-			const token = response.data.token;
-			const user = response.data.user;
+			token = response.data.token;
+			user = response.data.user;
 
             cookies.set('token', token, {
                 path: '/',

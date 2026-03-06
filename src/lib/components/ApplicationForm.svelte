@@ -54,7 +54,7 @@
 </script>
 
 <div class="flex justify-between pb-7">
-    <Button on:click={prevPage}>
+    <Button onclick={prevPage}>
         <Icon slot="left" icon="mdi:arrow-left" class="text-primary" width="24" />
         ย้อนกลับ
     </Button>

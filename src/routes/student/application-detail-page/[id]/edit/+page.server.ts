@@ -18,33 +18,6 @@ export const load: PageServerLoad = async (event) => {
   return { application, category };
 };
 
-
-// export const actions: Actions = {
-//     default: async ({ request, params }) => {
-//         const formData = await request.formData();
-//         const id = params.id;
-        
-//         formData.append('_method', 'PUT');
-        
-//         try {
-//             await apiClient.post(`/artists/${id}`, formData);
-        
-//         } catch (err: any) {
-//             if (err.response?.status === 422) {
-//                 const data = Object.fromEntries(formData);
-//                 delete data.image; 
-                
-//                 return fail(422, {
-//                     errors: err.response.data.errors,
-//                     data: data 
-//                 });
-//             }
-//         }
-        
-//         throw redirect(303, `/artists/${id}`);
-//     }
-// }
-
 export const actions: Actions = {
     default: async (event) => {
         const formData = await event.request.formData();

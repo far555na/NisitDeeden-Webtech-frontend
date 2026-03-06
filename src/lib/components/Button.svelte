@@ -1,17 +1,17 @@
 <script lang="ts">
-	import { createEventDispatcher } from 'svelte';
-
 	export let type: 'button' | 'submit' = 'button';
 	export let variant: 'primary' | 'outline' | 'filled' = 'primary';
 	export let fullWidth = false;
 	export let disabled = false;
-
-	const dispatch = createEventDispatcher<{ click: MouseEvent }>();
+	
+	// 1. Accept onclick as a standard Svelte 5 prop instead of using createEventDispatcher
+	export let onclick: ((e: MouseEvent) => void) | undefined = undefined;
 
 	const baseClass =
 		'flex h-min items-center justify-center gap-2 rounded-2xl px-5 py-3 font-medium transition';
 
-	const variants = {
+	// 2. Make variants reactive so it updates properly if 'disabled' changes
+	$: variants = {
 		primary: disabled ? 'text-neutral-300' : 'text-primary',
 		outline: disabled
 			? 'border-2 border-neutral-300 text-neutral-300'
@@ -25,13 +25,14 @@
 
 	function handleClick(e: MouseEvent) {
 		if (disabled) return;
-		dispatch('click', e); // forward click ออกไปให้ <Button on:click=...> จับได้
+		// 3. Trigger the passed prop function directly
+		if (onclick) onclick(e); 
 	}
 </script>
 
 <button
-	type={type}
-	disabled={disabled}
+	{type}
+	{disabled}
 	class={`${baseClass} ${variantClass} ${widthClass} ${disabledClass}`}
 	on:click={handleClick}
 >

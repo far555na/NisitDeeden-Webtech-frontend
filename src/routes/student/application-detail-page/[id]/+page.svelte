@@ -15,7 +15,7 @@
 </script>
 
 <div class="flex justify-between pb-5">
-	<Button on:click={back}>
+	<Button onclick={back}>
 		<Icon slot="left" icon="mdi:arrow-left" class="text-primary" width="24" />
 		ย้อนกลับ
 	</Button>

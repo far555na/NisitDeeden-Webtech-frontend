@@ -26,7 +26,7 @@
 	</Button>
 </div>
 
-<StyledTable headers={['ปีการศึกษา', 'เทอม', 'ประเภท', 'วันที่ส่ง', 'สถานะ']}>
+<StyledTable headers={['ปีการศึกษา', 'เทอม', 'ประเภท', 'วันที่ส่ง', 'สถานะ', '']}>
 	{#if data.applications && data.applications.length > 0}
 		{#each data.applications as application}
 			<tr 

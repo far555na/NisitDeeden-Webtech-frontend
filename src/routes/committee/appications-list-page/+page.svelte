@@ -1,12 +1,21 @@
-<script>
+<script lang="ts">
+	import { goto } from '$app/navigation';
 	import Button from '$lib/components/Button.svelte';
 	import StyledTable from '$lib/components/StyledTable.svelte';
+	import UserAvatar from '$lib/components/UserAvatar.svelte';
 	import Icon from '@iconify/svelte';
+	import profile from '$lib/assets/background.png';
 
-	let open = false;
+	const { data } = $props();
+
+	function goToDetail(id: number) {
+		goto(`/committee/application-detail-page/${id}`);
+	}
+
+	// let open = false;
 </script>
 
-<div class="flex justify-between pb-3">
+<!-- <div class="flex justify-between pb-3">
 	<Button>
 		<Icon slot="left" icon="mdi:arrow-left" class="text-primary" width="24" />
 		ย้อนกลับ
@@ -26,70 +35,40 @@
 			</ul>
 		{/if}
 	</div>
-</div>
+</div> -->
 
-<StyledTable headers={['ลำดับ', 'ปีการศึกษา', 'ประเภท', 'ผู้เสนอ', 'ผลการพิจารณา']}>
-	<tr>
-		<td>4</td>
-		<td>2569</td>
-		<td>ด้านความคิดสร้างสรรค์และนวัตกรรม</td>
-		<td>จอร์น โคว</td>
-		<td>-</td>
-		<td>
-			<div class="flex justify-end">
-				<Button variant="filled" type="button">
-					<Icon slot="left" icon="mdi:magnify" class="text-neutral-950" width="24" />
-					<div class="text-neutral-950">ตรวจสอบ</div>
-				</Button>
-			</div>
-		</td>
-	</tr>
-
-	<tr>
-		<td>3</td>
-		<td>2569</td>
-		<td>ด้านความคิดสร้างสรรค์และนวัตกรรม</td>
-		<td>จอร์น โคว</td>
-		<td>-</td>
-		<td>
-			<div class="flex justify-end">
-				<Button variant="filled" type="button">
-					<Icon slot="left" icon="mdi:magnify" class="text-neutral-950" width="24" />
-					<div class="text-neutral-950">ตรวจสอบ</div>
-				</Button>
-			</div>
-		</td>
-	</tr>
-
-	<tr>
-		<td>2</td>
-		<td>2568</td>
-		<td>ด้านความประพฤติดี</td>
-		<td>เจน โคว</td>
-		<td class="text-green-500">เห็นชอบ</td>
-		<td>
-			<div class="flex justify-end">
-				<Button variant="filled" type="button">
-					<Icon slot="left" icon="mdi:magnify" class="text-neutral-950" width="24" />
-					<div class="text-neutral-950">ตรวจสอบ</div>
-				</Button>
-			</div>
-		</td>
-	</tr>
-
-	<tr>
-		<td>1</td>
-		<td>2568</td>
-		<td>ด้านกิจกรรมเสริมหลักสูตร</td>
-		<td>ฉัตรชัย โชติสวัสดิ์</td>
-		<td class="text-red-500">ไม่เห็นชอบ</td>
-		<td>
-			<div class="flex justify-end">
-				<Button variant="filled" type="button">
-					<Icon slot="left" icon="mdi:magnify" class="text-neutral-950" width="24" />
-					<div class="text-neutral-950">ตรวจสอบ</div>
-				</Button>
-			</div>
-		</td>
-	</tr>
+<StyledTable headers={['ผู้ส่งใบสมัคร', 'ปีการศึกษา', 'เทอม', 'ประเภท', 'วันที่ส่ง', 'สถานะ']}>
+	{#if data.applications && data.applications.length > 0}
+		{#each data.applications as application}
+			<tr
+				class="cursor-pointer"
+				onclick={() => goToDetail(application.id)}
+				onkeydown={(e) => {
+					if (e.key === 'Enter' || e.key === ' ') {
+						e.preventDefault();
+						goToDetail(application.id);
+					}
+				}}
+				tabindex="0"
+			>
+				<td
+					><UserAvatar
+						name={application.user.name}
+						email={application.user.email}
+						profilePath={application.user.profile_path}
+						fallbackImage={profile}
+					/>
+				</td>
+				<td>{application.round.academic_year}</td>
+				<td>{application.round.semester}</td>
+				<td>{application.category.name}</td>
+				<td>{application.submitted_at}</td>
+				<td>{application.status_th}</td>
+			</tr>
+		{/each}
+	{:else}
+		<tr class="no-hover h-24">
+			<td colspan="6" class="px-20 text-center text-neutral-500">ไม่มีข้อมูล</td>
+		</tr>
+	{/if}
 </StyledTable>

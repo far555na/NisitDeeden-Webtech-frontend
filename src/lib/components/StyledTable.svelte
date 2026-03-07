@@ -8,7 +8,7 @@
 			{#each headers as h}
 				<th class="px-6 py-4">{h}</th>
 			{/each}
-			<th class="px-6 py-4"></th>
+			<!-- <th class="px-6 py-4"></th> -->
 		</tr>
 	</thead>
 

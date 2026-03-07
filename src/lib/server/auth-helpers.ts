@@ -53,3 +53,13 @@ export async function authedDelete<T = any>(event: RequestEvent, url: string) {
 		throw err;
 	}
 }
+
+export async function authedPatch<T = any>(event: RequestEvent, url: string, data: any) {
+	const token = requireAuth(event);
+	try {
+		return await apiClient.patch<T>(url, data, withAuth(token));
+	} catch (err) {
+		handleAuthError(event, err);
+		throw err;
+	}
+}

@@ -7,7 +7,7 @@
 	export let onclick: ((e: MouseEvent) => void) | undefined = undefined;
 
 	const baseClass =
-		'flex h-min items-center justify-center gap-2 rounded-2xl px-5 py-3 font-medium transition';
+		'flex h-min items-center justify-center gap-2 rounded-2xl px-5 py-3 font-medium transition hover:cursor-pointer';
 
 	$: variants = {
 		primary: disabled ? 'text-neutral-300' : 'text-primary',

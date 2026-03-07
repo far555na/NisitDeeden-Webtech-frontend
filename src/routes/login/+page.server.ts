@@ -39,6 +39,10 @@ export const actions: Actions = {
 		if (user.role === 'COMMITTEE') {
 			throw redirect(303, '/committee/appications-list-page');
 		}
+
+        if (user.role === 'ADMIN') {
+			throw redirect(303, '/admin/applications-list-page');
+		}
         
         throw redirect(303, '/');
     }

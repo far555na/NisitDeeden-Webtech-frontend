@@ -52,7 +52,7 @@
 
 		{#if showMenu}
 			<div
-				class="absolute top-full right-0 mt-2 w-40 rounded-xl border border-neutral-200 bg-white p-2 shadow-lg"
+				class="absolute top-full right-0 mt-2 z-50 w-40 rounded-xl border border-neutral-200 bg-white p-2 shadow-lg"
 			>
 				<form method="POST" action="/logout" on:submit|stopPropagation>
 					<button

@@ -1,17 +1,8 @@
 import type { PageServerLoad } from './$types';
-import apiClient from '$lib/server/api-client.server';
+import { authedGet } from '$lib/server/auth-helpers';
 
-export const load: PageServerLoad = async ({ url }) => {
-    try {
-        const page = url.searchParams.get('page') ?? '1';
-        const response = await apiClient.get(`/applications?page=${page}`); 
-
-        if (response.status === 200) {
-            return {
-                applications: response.data.data,
-                links: response.data.links,
-                meta: response.data.meta
-            };
-        }
-    } catch (err: any) {}
+export const load: PageServerLoad = async (event) => {
+	const page = event.url.searchParams.get('page') ?? '1';
+	const res = await authedGet(event, `/applications?page=${page}`);
+	return { applications: res.data.data, links: res.data.links, meta: res.data.meta };
 };

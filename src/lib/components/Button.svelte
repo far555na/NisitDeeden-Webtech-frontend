@@ -3,7 +3,6 @@
 	export let variant: 'primary' | 'outline' | 'filled' | 'outlineRed' = 'primary';
 	export let fullWidth = false;
 	export let disabled = false;
-	
 	export let onclick: ((e: MouseEvent) => void) | undefined = undefined;
 
 	const baseClass =
@@ -15,7 +14,9 @@
 			? 'border-2 border-neutral-300 text-neutral-300'
 			: 'border-2 border-primary text-primary',
 		filled: disabled ? 'bg-neutral-300 text-neutral-400' : 'bg-neutral-300 text-primary',
-		outlineRed: 'border-2 border-red-500 text-red-500',
+		outlineRed: disabled
+			? 'border-2 border-red-300 text-red-300'
+			: 'border-2 border-red-500 text-red-500'
 	};
 
 	$: widthClass = fullWidth ? 'w-full' : '';
@@ -31,7 +32,8 @@
 <button
 	{type}
 	{disabled}
-	class={`${baseClass} ${variantClass} ${widthClass} ${disabledClass}`}
+	{...$$restProps}
+	class={`${baseClass} ${variantClass} ${widthClass} ${disabledClass} ${$$props.class ?? ''}`}
 	on:click={handleClick}
 >
 	<slot name="left" />

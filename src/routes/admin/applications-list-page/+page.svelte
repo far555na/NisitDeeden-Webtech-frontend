@@ -16,6 +16,7 @@
 	function prevPage() {
 		goto(`/admin/applications-list-page?page=${data.meta.current_page - 1}`);
 	}
+
 </script>
 
 <div class="flex justify-between pb-3">
@@ -25,7 +26,7 @@
 	</Button>
 </div>
 
-<StyledTable headers={['ลำดับ', 'ผู้ส่งใบสมัคร', 'ประเภท', 'ผลการพิจารณา', 'วันที่ยื่นใบสมัคร']}>
+<StyledTable headers={['ลำดับ', 'ผู้ส่งใบสมัคร', 'ประเภท', 'ผลการพิจารณา', 'วันที่ยื่นใบสมัคร' , '']}>
 	{#if data.applications && data.applications.length > 0}
 		{#each data.applications as application}
 			<tr>
@@ -39,7 +40,7 @@
 					/>
 				</td>
 				<td>
-					{application.category.slug}
+					{application.category.name}
 				</td>
 				<td>
 					{application.status}

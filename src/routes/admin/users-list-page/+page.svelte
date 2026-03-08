@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import Button from '$lib/components/Button.svelte';
 	import StyledTable from '$lib/components/StyledTable.svelte';
 	import Icon from '@iconify/svelte';
@@ -16,16 +16,25 @@
 	function prevPage() {
 		goto(`/admin/users-list-page?page=${data.meta.current_page - 1}`);
 	}
+
+
+	function goToCreate() {
+		goto(`/admin/user-form-page`);
+	}
+
+	function goToEdit(id: number) {
+		goto(`/student/application-detail-page/${id}/edit`);
+	}
 </script>
 
-<!-- <div class="flex justify-between pb-3">
-	<Button>
+<div class="flex justify-between pb-3">
+	<Button type="button" onclick={goToCreate}>
 		<Icon slot="left" icon="mdi:arrow-left" class="text-primary" width="24" />
-		ย้อนกลับ
+		เพิ่มผู้ใช้งาน
 	</Button>
-</div> -->
+</div>
 
-<StyledTable headers={['ผู้ใช้', 'รหัสประจำตัว', 'บทบาท']}>
+<StyledTable headers={['ผู้ใช้', 'รหัสประจำตัว', 'บทบาท', 'คณะ', 'ภาควิชา', '']}>
 	{#if data.users && data.users.length > 0}
 		{#each data.users as user}
 			<tr>
@@ -38,13 +47,33 @@
 					/>
 				</td>
 				<td>{user.university_id}</td>
-				<td>{user.role}</td>
+				<td>{user.position_th}</td>		
+				<td>{user.faculty ?? '-'}</td>
+				<td>{user.department ?? '-'}</td>
 				<td>
-					<div class="flex justify-end">
-						<Button variant="filled" type="button">
-							<Icon slot="left" icon="mdi:magnify" class="text-neutral-950" width="24" />
-							<div class="text-neutral-950">ตรวจสอบ</div>
-						</Button>
+					<div class="flex justify-end gap-2">
+						<div 
+							role="presentation" 
+							onclick={(e) => e.stopPropagation()} 
+							onkeydown={(e) => e.stopPropagation()}
+						>
+							<Button variant="filled" type="button" onclick={() => goToEdit(user.id)}>
+								<div class="text-neutral-950">แก้ไข</div>
+							</Button>
+						</div>
+
+						<div 
+							role="presentation" 
+							onclick={(e) => e.stopPropagation()} 
+							onkeydown={(e) => e.stopPropagation()}
+						>
+							<form method="POST" action="?/deleteApplication">
+								<input type="hidden" name="id" value={user.id} />
+								<Button variant="filled" type="submit">
+									<div class="text-neutral-950">ลบ</div>
+								</Button>
+							</form>
+						</div>
 					</div>
 				</td>
 			</tr>

@@ -10,43 +10,54 @@
 	interface Props {
 		options: FilterOption[];
 		value: string;
+		placeholder?: string;
 		variant?: 'primary' | 'outline' | 'filled' | 'outlineRed';
 		widthClass?: string;
+		class?: string;
+		disabled?: boolean;
 		onSelect?: (value: string) => void;
 	}
 
 	let {
 		options,
 		value,
+		placeholder = 'ทั้งหมด',
 		variant = 'outline',
 		widthClass = 'min-w-[220px]',
+		class: className = '',
+		disabled = false,
 		onSelect
 	}: Props = $props();
 
 	let open = $state(false);
 
 	const selectedLabel = $derived(
-		options.find((option) => option.value === value)?.label ?? 'ทั้งหมด'
+		options.find((option) => option.value === value)?.label ?? placeholder
 	);
 
 	function selectFilter(selectedValue: string) {
+		if (disabled) return;
 		onSelect?.(selectedValue);
 		open = false;
 	}
 </script>
 
 <div class="relative inline-block">
-	<Button variant={variant} onclick={() => (open = !open)}>
+	<Button
+		variant={variant}
+		class={className}
+		disabled={disabled}
+		onclick={() => !disabled && (open = !open)}
+	>
 		{selectedLabel}
 		<Icon
 			slot="right"
 			icon={open ? 'mdi:chevron-up' : 'mdi:chevron-down'}
-			class="text-primary"
 			width="24"
 		/>
 	</Button>
 
-	{#if open}
+	{#if open && !disabled}
 		<div
 			class={`absolute right-0 z-10 mt-2 ${widthClass} rounded-xl border border-neutral-200 bg-white p-2 shadow-lg`}
 		>

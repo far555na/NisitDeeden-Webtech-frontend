@@ -3,10 +3,9 @@ kind: Service
 metadata:
   name: nisit-deeden-frontend
 spec:
-  type: NodePort
+  type: LoadBalancer
   selector:
     app: nisit-deeden-sveltekit
-  ports:
   ports:
     - port: 80
       targetPort: 3000

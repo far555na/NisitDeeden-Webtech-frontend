@@ -15,9 +15,6 @@ spec:
       containers:
         - name: app
           image: ${DOCKER_USERNAME}/nisit-deeden-sveltekit:latest
-          envFrom:
-            - secretRef:
-                name: sveltekit-env
           ports:
-            - containerPort: 3000
+            - containerPort: 80
           imagePullPolicy: Always

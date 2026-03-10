@@ -36,7 +36,7 @@ jobs:
             VITE_GOOGLE_CLIENT_ID=${{ secrets.VITE_GOOGLE_CLIENT_ID }}
             VITE_GOOGLE_OAUTH_CALLBACK_URL=${{ secrets.VITE_GOOGLE_OAUTH_CALLBACK_URL }}
           tags: |
-            ${{ secrets.DOCKER_USERNAME }}/nisit-deeden-laravel:latest
+            ${{ secrets.DOCKER_USERNAME }}/nisit-deeden-sveltekit:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
   deploy:

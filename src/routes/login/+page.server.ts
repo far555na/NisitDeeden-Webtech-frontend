@@ -8,8 +8,8 @@ export const actions: Actions = {
 		const email = formData.get('email');
 		const password = formData.get('password');
 
-        let user: any;  
-        let token: string;
+		let user: any;
+		let token: string;
 
 		try {
 			const response = await apiClient.post('/login', { email, password });
@@ -17,22 +17,22 @@ export const actions: Actions = {
 			token = response.data.token;
 			user = response.data.user;
 
-            cookies.set('token', token, {
-                path: '/',
-                httpOnly: true,
-                sameSite: 'lax',
-                secure: process.env.NODE_ENV === 'production', 
-                maxAge: 60 * 60 * 24 * 7 // 7 days
-            });
-            
-            const userBase64 = Buffer.from(JSON.stringify(user)).toString('base64');
-            cookies.set('user_info', userBase64, { path: '/', maxAge: 60 * 60 * 24 * 7 });
+			cookies.set('token', token, {
+				path: '/',
+				httpOnly: true,
+				sameSite: 'lax',
+				secure: process.env.NODE_ENV === 'production',
+				maxAge: 60 * 60 * 24 * 7 // 7 days
+			});
 
-        } catch (err: any) {
-            return fail(401, { message: 'อีเมลหรือรหัสผ่านไม่ถูกต้อง' });
-        }
+			const userBase64 = Buffer.from(JSON.stringify(user)).toString('base64');
+			cookies.set('user_info', userBase64, { path: '/', maxAge: 60 * 60 * 24 * 7 });
+		} catch (err: any) {
+			console.log(err);
+			return fail(401, { message: 'อีเมลหรือรหัสผ่านไม่ถูกต้อง' });
+		}
 
-        if (user.role === 'STUDENT') {
+		if (user.role === 'STUDENT') {
 			throw redirect(303, '/student/homepage');
 		}
 
@@ -40,10 +40,10 @@ export const actions: Actions = {
 			throw redirect(303, '/committee/appications-list-page');
 		}
 
-        if (user.role === 'ADMIN') {
+		if (user.role === 'ADMIN') {
 			throw redirect(303, '/admin/applications-list-page');
 		}
-        
-        throw redirect(303, '/');
-    }
+
+		throw redirect(303, '/');
+	}
 };

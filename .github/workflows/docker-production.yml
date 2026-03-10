@@ -32,7 +32,7 @@ jobs:
           push: true
           platforms: linux/amd64,linux/arm64
           tags: |
-            ${{ secrets.DOCKER_USERNAME }}/nisit-deeden-laravel:latest
+            ${{ secrets.DOCKER_USERNAME }}/nisit-deeden-sveltekit:latest
   deploy:
     needs: build-and-push
     runs-on: self-hosted # self-hosted runner in your machine
@@ -48,6 +48,17 @@ jobs:
           kubectl config current-context
           kubectl get nodes
 
+      - name: Setup env
+        run: |
+          echo "${{ secrets.SVELTEKIT_ENV }}" > .env
+
+      - name: Create k8s secret
+        run: |
+          kubectl create secret generic sveltekit-env \
+            --from-env-file=.env \
+            --namespace=default \
+            --dry-run=client -o yaml | kubectl apply -f -
+
       - name: Deploy to Kubernetes
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
@@ -56,5 +67,8 @@ jobs:
           envsubst < k8s/deployment.yml | kubectl apply -f -
           kubectl apply -f k8s/service.yml
 
-          kubectl rollout restart deployment/nisit-deeden-laravel
-          kubectl rollout status deployment/nisit-deeden-laravel
+          kubectl rollout restart deployment/nisit-deeden-sveltekit
+          kubectl rollout status deployment/nisit-deeden-sveltekit
+
+      # - name: Cleanup env
+      #   run: rm -f .env

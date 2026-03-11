@@ -40,8 +40,8 @@
 				}}
 				tabindex="0"
 			>
-				<td>{application.round.academic_year}</td>
-				<td>{application.round.semester}</td>
+				<td>{application.round.academic_year_th }</td>
+				<td>{application.round.semester_th}</td>
 				<td>{application.category.name}</td>
 				<td>{application.submitted_at}</td>
 				<td>{application.status_th}</td>

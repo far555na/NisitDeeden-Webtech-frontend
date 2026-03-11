@@ -12,7 +12,7 @@ export const load: PageServerLoad = async (event) => {
   const appRes = await authedGet(event, `/applications/${id}`);
   const application = appRes.data.data;
 
-  const catRes = await authedGet(event, `/categories/${application.category.slug}`);
+  const catRes = await authedGet(event, `/categories/${application.category.id}`);
   const category = catRes.data.data;
 
   return { application, category };

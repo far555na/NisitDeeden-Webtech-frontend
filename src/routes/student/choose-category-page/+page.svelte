@@ -39,7 +39,7 @@
 	{#if data.categories && data.categories.length > 0}
 		{#each data.categories as category}
 			{#if category.is_active}
-				<Card href={`/student/category-form-page?category=${category.slug}`}>
+				<Card href={`/student/category-form-page?category=${category.id}`}>
 					<Icon slot="icon" icon={category.icon} class="text-primary" width="100" />
 					{category.name}
 				</Card>

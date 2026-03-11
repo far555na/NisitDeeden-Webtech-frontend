@@ -1,7 +1,7 @@
 import background from '$lib/assets/background.png';
 
 export function getStorageUrl(path: string | null | undefined): string {
-	const baseUrl = import.meta.env.VITE_API_URL || '';
+	const baseUrl = import.meta.env.VITE_STORAGE_URL || '';
 
 	if (!path) return background;
 	if (path.startsWith('/storage')) {

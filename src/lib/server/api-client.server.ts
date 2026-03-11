@@ -5,7 +5,7 @@ import { VITE_API_URL } from '$env/static/private';
 const apiClient = axios.create({
 	baseURL: `${VITE_API_URL}/api`,
 	headers: {
-		Accept: 'application/json',
+		Accept: 'application/json'
 
 		// อันนี้พอใส่แล้วมันส่ง file ไม่ได้อ้ะ
 		// 'Content-Type': 'application/json',
@@ -16,12 +16,12 @@ const apiClient = axios.create({
 });
 
 export const withAuth = (token: string | undefined) => {
-    if (!token) return {};
-    return {
-        headers: {
-            Authorization: `Bearer ${token}`
-        }
-    };
+	if (!token) return {};
+	return {
+		headers: {
+			Authorization: `Bearer ${token}`
+		}
+	};
 };
 
 export default apiClient;

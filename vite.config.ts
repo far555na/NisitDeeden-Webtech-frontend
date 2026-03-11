@@ -11,6 +11,6 @@ export default defineConfig({
 		hmr: {
 			clientPort: 3000
 		},
-		allowedHosts: ['nisit-deeden.local']
+		allowedHosts: ['user.nisit-deeden.k8s.local']
 	}
 });

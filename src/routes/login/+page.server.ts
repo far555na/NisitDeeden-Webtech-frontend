@@ -1,6 +1,8 @@
 import { fail, redirect } from '@sveltejs/kit';
 import apiClient from '$lib/server/api-client.server';
 import type { Actions } from './$types';
+import { VITE_API_URL } from '$env/static/private';
+import { getStorageUrl } from '$lib/profile';
 
 export const actions: Actions = {
 	default: async ({ request, cookies }) => {
@@ -16,6 +18,7 @@ export const actions: Actions = {
 
 			token = response.data.token;
 			user = response.data.user;
+			user.profile_url = getStorageUrl(user.profile_url);
 
 			cookies.set('token', token, {
 				path: '/',

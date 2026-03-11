@@ -6,7 +6,6 @@
 	let { children } = $props();
 	let user = $derived(page.data.user);
 
-
 	const navItems = [
 		{ label: 'หน้าแรก', href: '/student/homepage' },
 		{ label: 'หลักเกณฑ์', href: '/student/criteria-page' }
@@ -15,11 +14,7 @@
 
 <svelte:head><link rel="icon" href={favicon} /></svelte:head>
 
-<Navbar
-	navItems={navItems}
-	userName={user?.name}
-	role={user?.role}
-/>
+<Navbar {navItems} userName={user?.name} role={user?.role} profileURL={user?.profile_url} />
 
 <div class="mx-auto p-8 font-sans md:p-10">
 	{@render children()}

@@ -6,6 +6,7 @@
 	import Icon from '@iconify/svelte';
 	import profile from '$lib/assets/background.png';
 	import FilterDropdown from '$lib/components/FilterDropdown.svelte';
+	import { getStorageUrl } from '$lib/profile';
 
 	let { data }: { data: any } = $props();
 
@@ -139,8 +140,6 @@
 </script>
 
 <div class="flex justify-end pb-3">
-	
-
 	<div class="flex gap-3">
 		{#if canShowFaculty}
 			<FilterDropdown
@@ -193,8 +192,7 @@
 					><UserAvatar
 						name={application.user.name}
 						email={application.user.email}
-						profilePath={application.user.profile_path}
-						fallbackImage={profile}
+						profileURL={getStorageUrl(application.user.profile_path)}
 					/>
 				</td>
 				{#if canShowDepartment}

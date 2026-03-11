@@ -16,7 +16,7 @@
 
 <svelte:head><link rel="icon" href={favicon} /></svelte:head>
 
-<Navbar {navItems} userName={user?.name} role={user?.role} />
+<Navbar {navItems} userName={user?.name} role={user?.role} profileURL={user?.profile_url} />
 
 <div class="mx-auto p-8 font-sans md:p-10">
 	{@render children()}

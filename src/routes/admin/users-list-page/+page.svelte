@@ -6,6 +6,7 @@
 	import { goto } from '$app/navigation';
 	import UserAvatar from '$lib/components/UserAvatar.svelte';
 	import Pagination from '$lib/components/Pagination.svelte';
+	import { getStorageUrl } from '$lib/profile.js';
 
 	const { data } = $props();
 
@@ -16,7 +17,6 @@
 	function prevPage() {
 		goto(`/admin/users-list-page?page=${data.meta.current_page - 1}`);
 	}
-
 
 	function goToCreate() {
 		goto(`/admin/user-form-page`);
@@ -42,19 +42,18 @@
 					<UserAvatar
 						name={user.name}
 						email={user.email}
-						profilePath={user.profile_path}
-						fallbackImage={profile}
+						profileURL={getStorageUrl(user.profile_path)}
 					/>
 				</td>
 				<td>{user.university_id}</td>
-				<td>{user.position_th}</td>		
+				<td>{user.position_th}</td>
 				<td>{user.faculty ?? '-'}</td>
 				<td>{user.department ?? '-'}</td>
 				<td>
 					<div class="flex justify-end gap-2">
-						<div 
-							role="presentation" 
-							onclick={(e) => e.stopPropagation()} 
+						<div
+							role="presentation"
+							onclick={(e) => e.stopPropagation()}
 							onkeydown={(e) => e.stopPropagation()}
 						>
 							<Button variant="filled" type="button" onclick={() => goToEdit(user.id)}>
@@ -62,9 +61,9 @@
 							</Button>
 						</div>
 
-						<div 
-							role="presentation" 
-							onclick={(e) => e.stopPropagation()} 
+						<div
+							role="presentation"
+							onclick={(e) => e.stopPropagation()}
 							onkeydown={(e) => e.stopPropagation()}
 						>
 							<form method="POST" action="?/deleteApplication">

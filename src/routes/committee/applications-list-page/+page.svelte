@@ -26,6 +26,16 @@
 		label: string;
 	};
 
+	let openDropdown = $state<string | null>(null);
+
+	function toggleDropdown(name: string) {
+		openDropdown = openDropdown === name ? null : name;
+	}
+
+	function closeDropdown() {
+		openDropdown = null;
+	}
+
 	const canShowDepartment = $derived(
 		data.user?.position === 'associate_dean' ||
 			data.user?.position === 'dean' ||
@@ -139,6 +149,9 @@
 			<FilterDropdown
 				options={facultyOptions}
 				value={selectedFaculty}
+				isOpen={openDropdown === 'faculty'}
+				onToggle={() => toggleDropdown('faculty')}
+				onClose={closeDropdown}
 				onValueChange={selectFaculty}
 			/>
 		{/if}
@@ -147,6 +160,9 @@
 			<FilterDropdown
 				options={departmentOptions}
 				value={selectedDepartment}
+				isOpen={openDropdown === 'department'}
+				onToggle={() => toggleDropdown('department')}
+				onClose={closeDropdown}
 				onValueChange={selectDepartment}
 			/>
 		{/if}
@@ -154,6 +170,9 @@
 		<FilterDropdown
 			options={categoryOptions}
 			value={selectedCategory}
+			isOpen={openDropdown === 'category'}
+			onToggle={() => toggleDropdown('category')}
+			onClose={closeDropdown}
 			onValueChange={selectCategory}
 		/>
 	</div>

@@ -20,6 +20,12 @@
 		};
 	};
 
+	type Faculty = {
+		name: string;
+		value: string;
+		label: string;
+	};
+
 	const canShowDepartment = $derived(
 		data.user?.position === 'associate_dean' ||
 			data.user?.position === 'dean' ||
@@ -39,11 +45,12 @@
 	]);
 
 	const categories = $derived(data.categories);
-	const applications = $derived(data.applications);
 	const departments = $derived(data.departments);
+	const faculties = $derived(data.faculties);
 
 	let selectedCategory = $derived(data.selectedCategoryId ?? 'all');
 	let selectedDepartment = $derived(data.selectedDepartment ?? 'all');
+	let selectedFaculty = $derived(data.selectedFaculty ?? 'all');
 
 	const categoryOptions = $derived([
 		{ label: 'ประเภททั้งหมด', value: 'all' },
@@ -58,7 +65,11 @@
 			? departments.filter(
 					(department: Department) => department.faculty.value === data.user.faculty
 				)
-			: departments
+			: data.user?.position === 'committee_member' && selectedFaculty !== 'all'
+				? departments.filter(
+						(department: Department) => department.faculty.value === selectedFaculty
+					)
+				: departments
 	);
 
 	const departmentOptions = $derived([
@@ -69,14 +80,26 @@
 		}))
 	]);
 
-	function updateFilters(category: string, department: string) {
+	const facultyOptions = $derived([
+		{ label: 'คณะทั้งหมด', value: 'all' },
+		...faculties.map((faculty: Faculty) => ({
+			label: faculty.label,
+			value: faculty.value
+		}))
+	]);
+
+	function updateFilters(category: string, department: string, faculty: string) {
 		const params = new URLSearchParams();
 
 		if (category !== 'all') {
 			params.set('category_id', category);
 		}
 
-		if (canShowDepartment && department !== 'all') {
+		if (faculty !== 'all' && canShowFaculty) {
+			params.set('faculty', faculty);
+		}
+
+		if (department !== 'all' && canShowDepartment) {
 			params.set('department', department);
 		}
 
@@ -86,12 +109,18 @@
 
 	function selectCategory(value: string) {
 		selectedCategory = value;
-		updateFilters(value, selectedDepartment);
+		updateFilters(value, selectedDepartment, selectedFaculty);
 	}
 
 	function selectDepartment(value: string) {
 		selectedDepartment = value;
-		updateFilters(selectedCategory, value);
+		updateFilters(selectedCategory, value, selectedFaculty);
+	}
+
+	function selectFaculty(value: string) {
+		selectedFaculty = value;
+		selectedDepartment = 'all';
+		updateFilters(selectedCategory, 'all', value);
 	}
 
 	function goToDetail(id: number) {
@@ -106,6 +135,14 @@
 	</Button>
 
 	<div class="flex gap-3">
+		{#if canShowFaculty}
+			<FilterDropdown
+				options={facultyOptions}
+				value={selectedFaculty}
+				onValueChange={selectFaculty}
+			/>
+		{/if}
+
 		{#if canShowDepartment}
 			<FilterDropdown
 				options={departmentOptions}

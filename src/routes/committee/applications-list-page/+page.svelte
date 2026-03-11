@@ -9,27 +9,89 @@
 
 	let { data }: { data: any } = $props();
 
+	type Department = {
+		name: string;
+		value: string;
+		label: string;
+		faculty: {
+			name: string;
+			value: string;
+			label: string;
+		};
+	};
+
+	const canShowDepartment = $derived(
+		data.user?.position === 'associate_dean' ||
+			data.user?.position === 'dean' ||
+			data.user?.position === 'committee_member'
+	);
+
+	const canShowFaculty = $derived(data.user?.position === 'committee_member');
+
+	const tableHeaders = $derived([
+		'ผู้ส่งใบสมัคร',
+		...(canShowDepartment ? ['ภาควิชา'] : []),
+		...(canShowFaculty ? ['คณะ'] : []),
+		'ปีการศึกษา',
+		'เทอม',
+		'ประเภท',
+		'วันที่ส่ง'
+	]);
+
 	const categories = $derived(data.categories);
 	const applications = $derived(data.applications);
+	const departments = $derived(data.departments);
 
 	let selectedCategory = $derived(data.selectedCategoryId ?? 'all');
+	let selectedDepartment = $derived(data.selectedDepartment ?? 'all');
 
 	const categoryOptions = $derived([
-		{ label: 'ทั้งหมด', value: 'all' },
+		{ label: 'ประเภททั้งหมด', value: 'all' },
 		...categories.map((category: any) => ({
 			label: category.name,
 			value: String(category.id)
 		}))
 	]);
 
+	const filteredDepartments = $derived(
+		data.user?.position === 'associate_dean' || data.user?.position === 'dean'
+			? departments.filter(
+					(department: Department) => department.faculty.value === data.user.faculty
+				)
+			: departments
+	);
+
+	const departmentOptions = $derived([
+		{ label: 'ภาควิชาทั้งหมด', value: 'all' },
+		...filteredDepartments.map((department: Department) => ({
+			label: department.label,
+			value: department.value
+		}))
+	]);
+
+	function updateFilters(category: string, department: string) {
+		const params = new URLSearchParams();
+
+		if (category !== 'all') {
+			params.set('category_id', category);
+		}
+
+		if (canShowDepartment && department !== 'all') {
+			params.set('department', department);
+		}
+
+		const query = params.toString();
+		goto(`/committee/applications-list-page${query ? `?${query}` : ''}`);
+	}
+
 	function selectCategory(value: string) {
 		selectedCategory = value;
+		updateFilters(value, selectedDepartment);
+	}
 
-		goto(
-			value === 'all'
-				? '/committee/applications-list-page'
-				: `/committee/applications-list-page?category_id=${value}`
-		);
+	function selectDepartment(value: string) {
+		selectedDepartment = value;
+		updateFilters(selectedCategory, value);
 	}
 
 	function goToDetail(id: number) {
@@ -43,14 +105,24 @@
 		ย้อนกลับ
 	</Button>
 
-	<FilterDropdown
-		options={categoryOptions}
-		value={selectedCategory}
-		onValueChange={selectCategory}
-	/>
+	<div class="flex gap-3">
+		{#if canShowDepartment}
+			<FilterDropdown
+				options={departmentOptions}
+				value={selectedDepartment}
+				onValueChange={selectDepartment}
+			/>
+		{/if}
+
+		<FilterDropdown
+			options={categoryOptions}
+			value={selectedCategory}
+			onValueChange={selectCategory}
+		/>
+	</div>
 </div>
 
-<StyledTable headers={['ผู้ส่งใบสมัคร', 'ปีการศึกษา', 'เทอม', 'ประเภท', 'วันที่ส่ง', 'สถานะ']}>
+<StyledTable headers={tableHeaders}>
 	{#if data.applications && data.applications.length > 0}
 		{#each data.applications as application}
 			<tr
@@ -72,16 +144,22 @@
 						fallbackImage={profile}
 					/>
 				</td>
+				{#if canShowDepartment}
+					<td>{application.user.department}</td>
+				{/if}
+				{#if canShowFaculty}
+					<td>{application.user.faculty}</td>
+				{/if}
 				<td>{application.round.academic_year_th}</td>
 				<td>{application.round.semester_th}</td>
 				<td>{application.category.name}</td>
 				<td>{application.submitted_at}</td>
-				<td>{application.status_th}</td>
+				<!-- <td>{application.status_th}</td> -->
 			</tr>
 		{/each}
 	{:else}
 		<tr class="no-hover h-24">
-			<td colspan="6" class="px-20 text-center text-neutral-500">ไม่มีข้อมูล</td>
+			<td colspan={tableHeaders.length} class="px-20 text-center text-neutral-500">ไม่มีข้อมูล</td>
 		</tr>
 	{/if}
 </StyledTable>

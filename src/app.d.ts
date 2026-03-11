@@ -9,7 +9,9 @@ declare global {
 				name: string;
 				email: string;
 				role: 'STUDENT' | 'COMMITTEE' | 'ADMIN';
-				// position: 'dean' | 'associate_dean' | 'head_of_department' | 'committee_member' | 'student';
+				position: 'dean' | 'associate_dean' | 'head_of_department' | 'committee_member' | 'student' | 'staff';
+				faculty: string;
+				department: string;
 			} | null; // ถ้าเป็น null แปลว่ายังไม่ได้ล็อกอิน
 		}
 		// interface PageData {}D

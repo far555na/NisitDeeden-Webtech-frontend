@@ -34,6 +34,7 @@ jobs:
           platforms: linux/amd64,linux/arm64
           build-args: |
             VITE_API_URL=${{ vars.VITE_API_URL }}
+            VITE_STORAGE_URL=${{ vars.VITE_STORAGE_URL }}
             VITE_GOOGLE_CLIENT_ID=${{ vars.VITE_GOOGLE_CLIENT_ID }}
             VITE_GOOGLE_OAUTH_CALLBACK_URL=${{ vars.VITE_GOOGLE_OAUTH_CALLBACK_URL }}
           tags: |

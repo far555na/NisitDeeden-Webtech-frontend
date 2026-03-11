@@ -17,7 +17,7 @@ export const actions: Actions = {
 				action: 'approve'
 			});
 
-			throw redirect(303, '/committee/appications-list-page');
+			throw redirect(303, '/committee/applications-list-page');
 		} catch (err: any) {
 			if (err?.status === 303) throw err;
 
@@ -40,7 +40,7 @@ export const actions: Actions = {
 				rejection_reason: reject_reason
 			});
 
-			throw redirect(303, '/committee/appications-list-page');
+			throw redirect(303, '/committee/applications-list-page');
 		} catch (err: any) {
 			if (err?.status === 303) throw err;
 			

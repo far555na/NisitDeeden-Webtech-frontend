@@ -10,6 +10,16 @@
 
 	const { data, form } = $props();
 
+	let openDropdown = $state<string | null>(null);
+
+	function toggleDropdown(name: string) {
+		openDropdown = openDropdown === name ? null : name;
+	}
+
+	function closeDropdown() {
+		openDropdown = null;
+	}
+
 	let isSubmitting = $state(false);
 	let previewUrl = $state<string | null>(null);
 	let selectedFileName = $state('ยังไม่ได้เลือกไฟล์');
@@ -156,7 +166,10 @@
 								options={facultyOptions}
 								value={selectedFaculty}
 								placeholder="คณะ"
-								onSelect={(v) => (selectedFaculty = v)}
+								isOpen={openDropdown === 'faculty'}
+								onToggle={() => toggleDropdown('faculty')}
+								onClose={closeDropdown}
+								onValueChange={(v) => (selectedFaculty = v)}
 							/>
 							<input type="hidden" name="faculty" value={selectedFaculty} />
 						</div>
@@ -168,7 +181,10 @@
 								options={departmentOptions}
 								value={selectedDepartment}
 								placeholder="ภาควิชา"
-								onSelect={(v) => (selectedDepartment = v)}
+								isOpen={openDropdown === 'department'}
+								onToggle={() => toggleDropdown('department')}
+								onClose={closeDropdown}
+								onValueChange={(v) => (selectedDepartment = v)}
 								disabled={isDepartmentDisabled}
 							/>
 							<input type="hidden" name="department" value={selectedDepartment} />

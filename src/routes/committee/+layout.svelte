@@ -8,7 +8,7 @@
 
 
 	const navItems = [
-		{ label: 'หน้าแรก', href: '/committee/appications-list-page' },
+		{ label: 'หน้าแรก', href: '/committee/applications-list-page' },
 		// { label: 'หลักเกณฑ์', href: '/student/criteria-page' }
 	];
 </script>

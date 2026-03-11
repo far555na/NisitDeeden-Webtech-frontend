@@ -138,11 +138,8 @@
 	}
 </script>
 
-<div class="flex justify-between pb-3">
-	<Button>
-		<Icon slot="left" icon="mdi:arrow-left" class="text-primary" width="24" />
-		ย้อนกลับ
-	</Button>
+<div class="flex justify-end pb-3">
+	
 
 	<div class="flex gap-3">
 		{#if canShowFaculty}

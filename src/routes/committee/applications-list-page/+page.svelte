@@ -7,47 +7,34 @@
 	import profile from '$lib/assets/background.png';
 	import FilterDropdown from '$lib/components/FilterDropdown.svelte';
 
-	const { data } = $props();
+	let { data }: { data: any } = $props();
 
-	// console.log('data =', data);
-	// console.log('applications =', data.applications);
+	const categories = $derived(data.categories);
+	const applications = $derived(data.applications);
+
+	let selectedCategory = $derived(data.selectedCategoryId ?? 'all');
+
+	const categoryOptions = $derived([
+		{ label: 'ทั้งหมด', value: 'all' },
+		...categories.map((category: any) => ({
+			label: category.name,
+			value: String(category.id)
+		}))
+	]);
+
+	function selectCategory(value: string) {
+		selectedCategory = value;
+
+		goto(
+			value === 'all'
+				? '/committee/applications-list-page'
+				: `/committee/applications-list-page?category_id=${value}`
+		);
+	}
 
 	function goToDetail(id: number) {
 		goto(`/committee/application-detail-page/${id}`);
 	}
-
-	let open = $state(false);
-	let selectedFilter = $state('all');
-
-	const filterOptions = [
-		{ label: 'ทั้งหมด', value: 'all' },
-		{ label: 'รอดำเนินการ', value: 'pending' },
-		{ label: 'เห็นชอบ', value: 'approved' },
-		{ label: 'ไม่เห็นชอบ', value: 'rejected' }
-	];
-
-	function selectFilter(value: string) {
-		selectedFilter = value;
-		open = false;
-	}
-
-	const filteredApplications = $derived(
-		selectedFilter === 'all'
-			? data.applications
-			: data.applications.filter((application: any) => {
-					const status = application.status?.toLowerCase?.() ?? '';
-
-					if (selectedFilter === 'pending') return status.includes('pending');
-					if (selectedFilter === 'approved') return status.includes('approved');
-					if (selectedFilter === 'rejected') return status.includes('rejected');
-
-					return true;
-				})
-	);
-
-	const selectedLabel = $derived(
-		filterOptions.find((option) => option.value === selectedFilter)?.label ?? 'ทั้งหมด'
-	);
 </script>
 
 <div class="flex justify-between pb-3">
@@ -57,9 +44,9 @@
 	</Button>
 
 	<FilterDropdown
-		options={filterOptions}
-		value={selectedFilter}
-		onSelect={(value) => (selectedFilter = value)}
+		options={categoryOptions}
+		value={selectedCategory}
+		onValueChange={selectCategory}
 	/>
 </div>
 

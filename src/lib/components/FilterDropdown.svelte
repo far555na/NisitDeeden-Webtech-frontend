@@ -15,7 +15,7 @@
 		widthClass?: string;
 		class?: string;
 		disabled?: boolean;
-		onSelect?: (value: string) => void;
+		onValueChange?: (value: string) => void;
 	}
 
 	let {
@@ -26,7 +26,7 @@
 		widthClass = 'min-w-[220px]',
 		class: className = '',
 		disabled = false,
-		onSelect
+		onValueChange
 	}: Props = $props();
 
 	let open = $state(false);
@@ -37,7 +37,7 @@
 
 	function selectFilter(selectedValue: string) {
 		if (disabled) return;
-		onSelect?.(selectedValue);
+		onValueChange?.(selectedValue);
 		open = false;
 	}
 </script>

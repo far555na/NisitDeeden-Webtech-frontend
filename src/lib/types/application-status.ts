@@ -29,19 +29,19 @@ export function getApplicationStatusLabel(status: ApplicationStatusValue): strin
 	}
 }
 
-export function getApplicationStatusColor(status: string): string {
+export function getApplicationStatusColor(status: ApplicationStatusValue): string {
 	switch (status) {
-		case 'PENDING':
+		case ApplicationStatus.PENDING:
 			return 'text-yellow-700';
 
-		case 'REJECTED':
+		case ApplicationStatus.REJECTED:
 			return 'text-red-500';
 
-		case 'APPROVED_BY_DEPARTMENT':
-		case 'APPROVED_BY_ASSOCIATE_DEAN':
-		case 'APPROVED_BY_DEAN':
-		case 'APPROVED_BY_COMMITTEE':
-			return 'text-primary';
+		case ApplicationStatus.APPROVED_BY_DEPARTMENT:
+		case ApplicationStatus.APPROVED_BY_ASSOCIATE_DEAN:
+		case ApplicationStatus.APPROVED_BY_DEAN:
+		case ApplicationStatus.APPROVED_BY_COMMITTEE:
+			return 'text-green-600';
 
 		default:
 			return 'text-gray-700';

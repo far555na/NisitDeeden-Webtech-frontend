@@ -5,6 +5,8 @@
 	import FileLink from '$lib/components/FileLink.svelte';
 	import Icon from '@iconify/svelte';
 	import { getStorageUrl } from '$lib/profile';
+	import StatusProgress from './StatusProgress.svelte';
+	import { ApplicationStatus } from '$lib/types/application-status';
 
 	export let application: any;
 
@@ -17,14 +19,39 @@
 
 	$: textAttributes = values.filter((attribute: any) => !attribute.is_file);
 	$: fileAttributes = values.filter((attribute: any) => attribute.is_file);
+
+	$: isRejected = application?.status === ApplicationStatus.REJECTED;
+	$: rejectReason = application?.reject_reason ?? application?.rejection_reason ?? '-';
 </script>
 
-<div class="flex justify-between pb-5">
-	<Button onclick={back}>
-		<Icon slot="left" icon="mdi:arrow-left" class="text-primary" width="24" />
-		ย้อนกลับ
-	</Button>
-	
+<div class="relative flex items-center pb-12">
+	<div class="flex-shrink-0">
+		<Button onclick={back}>
+			<Icon slot="left" icon="mdi:arrow-left" class="text-primary" width="24" />
+			ย้อนกลับ
+		</Button>
+	</div>
+
+	<div class="absolute left-1/2 w-full max-w-4xl -translate-x-1/2 px-6">
+		{#if isRejected}
+			<div class="inline-flex w-full max-w-4xl gap-2 rounded-2xl border-2 border-red-200 bg-red-50 p-5 text-base">
+	<div class="flex items-center gap-2 font-semibold text-red-500">
+		<Icon icon="mdi:close-circle-outline" width="24" />
+		ไม่ผ่านการพิจารณา
+	</div>
+
+	<div class="font-medium text-red-500">เนื่องด้วย</div>
+
+	<div class="whitespace-pre-wrap text-red-500 underline">
+		{rejectReason}
+	</div>
+</div>
+		{:else}
+			<div class="w-full max-w-4xl">
+				<StatusProgress status={application.status} />
+			</div>
+		{/if}
+	</div>
 </div>
 
 <div class="flex flex-wrap gap-20">
@@ -51,7 +78,13 @@
 						value={user.name ?? ''}
 						readonly
 					/>
-					<FormField id="faculty" name="faculty" label="คณะ" value={user.faculty_th ?? ''} readonly />
+					<FormField
+						id="faculty"
+						name="faculty"
+						label="คณะ"
+						value={user.faculty_th ?? ''}
+						readonly
+					/>
 					<FormField
 						id="department"
 						name="department"

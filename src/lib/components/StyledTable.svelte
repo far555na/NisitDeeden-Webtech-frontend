@@ -20,12 +20,19 @@
 </div>
 
 <style>
+	:global(thead th) {
+		height: 50px;
+		vertical-align: middle;
+	}
+
 	:global(tbody td) {
 		padding: 0.5rem 1.5rem; /* same as px-6 py-4 */
 	}
 
 	:global(tbody tr) {
 		background-color: oklch(98.5% 0 0); /* same as hover:bg-neutral-50 */
+		height: 65px;
+		vertical-align: middle;
 	}
 
 	:global(tbody tr:not(.no-hover):hover) {

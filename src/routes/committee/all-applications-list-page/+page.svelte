@@ -197,7 +197,7 @@
 					><UserAvatar
 						name={application.user.name}
 						email={application.user.email}
-						profileURL={getStorageUrl(application.user.profile_path)}
+						profileURL={getStorageUrl(application.user.profile_url)}
 					/>
 				</td>
 
@@ -214,9 +214,7 @@
 				{/if}
 				<!-- <td>{application.submitted_at}</td> -->
 				<td>
-					<span
-						class={`font-semibold ${getApplicationStatusColor(application.status)}`}
-					>
+					<span class={`font-semibold ${getApplicationStatusColor(application.status)}`}>
 						{application.status_th}
 					</span>
 				</td>

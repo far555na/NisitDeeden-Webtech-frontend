@@ -5,21 +5,6 @@ import { error, redirect, fail } from '@sveltejs/kit';
 import apiClient from '$lib/server/api-client.server';
 
 export const load: PageServerLoad = async (event) => {
-	const res = await authedGet(event, `/my-applications`);
+	const res = await authedGet(event, `/applications/user/inactive`);
 	return { applications: res.data.data };
-};
-
-export const actions: Actions = {
-	deleteApplication: async (event) => {
-		const formData = await event.request.formData();
-		const id = formData.get('id');
-
-		if (!id) {
-			return fail(400, { message: 'Missing application id' });
-		}
-
-		await authedDelete(event, `/applications/${id}`);
-
-		throw redirect(303, '/student/applications-history-page');
-	}
 };

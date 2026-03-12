@@ -28,7 +28,7 @@
 	</Button>
 </div>
 
-<StyledTable headers={['ปีการศึกษา', 'เทอม', 'ประเภท', 'วันที่ส่ง', 'สถานะ', '']}>
+<StyledTable headers={['ปีการศึกษา', 'เทอม', 'ประเภท', 'วันที่ส่ง', 'สถานะ']}>
 	{#if data.applications && data.applications.length > 0}
 		{#each data.applications as application}
 			<tr
@@ -53,7 +53,7 @@
 						{application.status_th}
 					</span>
 				</td>
-				<td>
+				<!-- <td>
 					<div class="flex justify-end gap-2">
 						<div
 							role="presentation"
@@ -78,7 +78,7 @@
 							</form>
 						</div>
 					</div>
-				</td>
+				</td> -->
 			</tr>
 		{/each}
 	{:else}

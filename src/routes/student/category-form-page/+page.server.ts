@@ -15,7 +15,7 @@ export const actions: Actions = {
 
 		try {
 			await authedPost(event, '/applications', formData);
-			throw redirect(303, '/student/applications-history-page');
+			throw redirect(303, '/student/homepage');
 
 		} catch (error: any) {
 			if (error.status === 303) throw error;

@@ -7,6 +7,11 @@
 	import profile from '$lib/assets/background.png';
 	import FilterDropdown from '$lib/components/FilterDropdown.svelte';
 	import { getStorageUrl } from '$lib/profile';
+	import CategoryBadge from '$lib/components/CategoryBadge.svelte';
+	import {
+		getApplicationStatusColor,
+		getApplicationStatusLabel
+	} from '$lib/types/application-status';
 
 	let { data }: { data: any } = $props();
 
@@ -50,9 +55,9 @@
 		'ปีการศึกษา',
 		'เทอม',
 		'ประเภท',
-		...(canShowDepartment ? ['ภาควิชา'] : []),
 		...(canShowFaculty ? ['คณะ'] : []),
-        'สถานะ',
+		...(canShowDepartment ? ['ภาควิชา'] : []),
+		'สถานะ'
 	]);
 
 	const categories = $derived(data.categories);
@@ -198,15 +203,23 @@
 
 				<td>{application.round.academic_year_th}</td>
 				<td>{application.round.semester_th}</td>
-				<td>{application.category.name}</td>
-				{#if canShowDepartment}
-					<td>{application.user.department}</td>
-				{/if}
+				<td>
+					<CategoryBadge name={application.category.name} icon={application.category.icon} />
+				</td>
 				{#if canShowFaculty}
-					<td>{application.user.faculty}</td>
+					<td>{application.user.faculty_th}</td>
+				{/if}
+				{#if canShowDepartment}
+					<td>{application.user.department_th}</td>
 				{/if}
 				<!-- <td>{application.submitted_at}</td> -->
-				<td>{application.status_th}</td>
+				<td>
+					<span
+						class={`font-semibold ${getApplicationStatusColor(application.status)}`}
+					>
+						{application.status_th}
+					</span>
+				</td>
 			</tr>
 		{/each}
 	{:else}

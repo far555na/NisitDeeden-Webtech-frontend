@@ -42,7 +42,7 @@
 					<UserAvatar
 						name={user.name}
 						email={user.email}
-						profileURL={getStorageUrl(user.profile_path)}
+						profileURL={getStorageUrl(user.profile_url)}
 					/>
 				</td>
 				<td>{user.university_id}</td>

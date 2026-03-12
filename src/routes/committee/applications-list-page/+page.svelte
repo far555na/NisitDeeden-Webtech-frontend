@@ -201,7 +201,7 @@
 					><UserAvatar
 						name={application.user.name}
 						email={application.user.email}
-						profileURL={getStorageUrl(application.user.profile_path)}
+						profileURL={getStorageUrl(application.user.profile_url)}
 					/>
 				</td>
 

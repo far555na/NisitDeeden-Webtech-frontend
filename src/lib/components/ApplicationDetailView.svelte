@@ -34,18 +34,20 @@
 
 	<div class="absolute left-1/2 w-full max-w-4xl -translate-x-1/2 px-6">
 		{#if isRejected}
-			<div class="inline-flex w-full max-w-4xl gap-2 rounded-2xl border-2 border-red-200 bg-red-50 p-5 text-base">
-	<div class="flex items-center gap-2 font-semibold text-red-500">
-		<Icon icon="mdi:close-circle-outline" width="24" />
-		ไม่ผ่านการพิจารณา
-	</div>
+			<div
+				class="inline-flex w-full max-w-4xl gap-2 rounded-2xl border-2 border-red-200 bg-red-50 p-5 text-base"
+			>
+				<div class="flex items-center gap-2 font-semibold text-red-500">
+					<Icon icon="mdi:close-circle-outline" width="24" />
+					ไม่ผ่านการพิจารณา
+				</div>
 
-	<div class="font-medium text-red-500">เนื่องด้วย</div>
+				<div class="font-medium text-red-500">เนื่องด้วย</div>
 
-	<div class="whitespace-pre-wrap text-red-500 underline">
-		{rejectReason}
-	</div>
-</div>
+				<div class="whitespace-pre-wrap text-red-500 underline">
+					{rejectReason}
+				</div>
+			</div>
 		{:else}
 			<div class="w-full max-w-4xl">
 				<StatusProgress status={application.status} />
@@ -58,7 +60,7 @@
 	<div class="md:w-2/3">
 		<div class="flex w-full flex-wrap gap-10">
 			<div>
-				<img class="h-auto w-3xs" src={getStorageUrl(user.profile_path)} alt="background" />
+				<img class="h-auto w-3xs" src={getStorageUrl(user.profile_url)} alt="background" />
 			</div>
 
 			<div class="min-w-xs flex-1">

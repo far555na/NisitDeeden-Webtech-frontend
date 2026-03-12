@@ -3,13 +3,14 @@
 	import favicon from '$lib/assets/favicon.svg';
 	import Navbar from '$lib/components/Navbar.svelte';
 	import { getStorageUrl } from '$lib/profile';
+	import { getUserPositionLabel } from '$lib/types/user-position';
 
 	let { children } = $props();
 	let user = $derived(page.data.user);
 
 	const navItems = [
-		{ label: 'หน้าแรก', href: '/student/homepage' }
-		// { label: 'หลักเกณฑ์', href: '/student/criteria-page' }
+		{ label: 'หน้าแรก', href: '/student/homepage' },
+		{ label: 'ใบสมัครที่เคยเสนอ', href: '/student/applications-history-page' }
 	];
 </script>
 
@@ -18,7 +19,7 @@
 <Navbar
 	{navItems}
 	userName={user?.name}
-	role={user?.role}
+	role={getUserPositionLabel(user?.position)}
 	profileURL={getStorageUrl(user?.profile_url)}
 />
 

@@ -9,8 +9,8 @@
 	let user = $derived(page.data.user);
 
 	const navItems = [
-		{ label: 'ใบสมัครรออนุมัติ', href: '/committee/applications-list-page' },
-		{ label: 'ใบสมัครทั้งหมด', href: '/committee/all-applications-list-page' }
+		{ label: 'ใบสมัคร (รออนุมัติ)', href: '/committee/applications-list-page' },
+		{ label: 'ใบสมัคร (ทั้งหมด)', href: '/committee/all-applications-list-page' }
 	];
 </script>
 

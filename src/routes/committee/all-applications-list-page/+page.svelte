@@ -51,7 +51,8 @@
 		'เทอม',
 		'ประเภท',
 		...(canShowDepartment ? ['ภาควิชา'] : []),
-		...(canShowFaculty ? ['คณะ'] : [])
+		...(canShowFaculty ? ['คณะ'] : []),
+        'สถานะ',
 	]);
 
 	const categories = $derived(data.categories);
@@ -114,7 +115,7 @@
 		}
 
 		const query = params.toString();
-		goto(`/committee/applications-list-page${query ? `?${query}` : ''}`);
+		goto(`/committee/all-applications-list-page${query ? `?${query}` : ''}`);
 	}
 
 	function selectCategory(value: string) {
@@ -205,7 +206,7 @@
 					<td>{application.user.faculty}</td>
 				{/if}
 				<!-- <td>{application.submitted_at}</td> -->
-				<!-- <td>{application.status_th}</td> -->
+				<td>{application.status_th}</td>
 			</tr>
 		{/each}
 	{:else}

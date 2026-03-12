@@ -8,8 +8,8 @@
 	let user = $derived(page.data.user);
 
 	const navItems = [
-		{ label: 'หน้าแรก', href: '/committee/applications-list-page' }
-		// { label: 'หลักเกณฑ์', href: '/student/criteria-page' }
+		{ label: 'ใบสมัครรออนุมัติ', href: '/committee/applications-list-page' },
+		{ label: 'ใบสมัครทั้งหมด', href: '/committee/all-applications-list-page' }
 	];
 </script>
 
@@ -22,6 +22,6 @@
 	profileURL={getStorageUrl(user?.profile_url)}
 />
 
-<div class="mx-auto p-8 font-sans md:p-10">
+<div class="mx-auto px-8 pb-8 pt-4 font-sans md:px-10 md:pb-10 md:pt-5">
 	{@render children()}
 </div>

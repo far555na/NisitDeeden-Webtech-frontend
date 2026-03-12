@@ -24,6 +24,6 @@
 	profileURL={getStorageUrl(user?.profile_url)}
 />
 
-<div class="mx-auto p-8 font-sans md:p-10">
+<div class="mx-auto px-8 pb-8 pt-4 font-sans md:px-10 md:pb-10 md:pt-5">
 	{@render children()}
 </div>

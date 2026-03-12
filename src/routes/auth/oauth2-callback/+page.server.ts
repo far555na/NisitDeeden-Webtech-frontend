@@ -1,6 +1,7 @@
 import { redirect, error } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 import apiClient, { withAuth } from '$lib/server/api-client.server';
+import { getStorageUrl } from '$lib/profile';
 
 export const load: PageServerLoad = async ({ url, cookies }) => {
 	const token = url.searchParams.get('token');
@@ -19,7 +20,8 @@ export const load: PageServerLoad = async ({ url, cookies }) => {
 		});
 
 		const response = await apiClient.get('/user', withAuth(token));
-		const user = response.data;
+		let user = response.data;
+		user.profile_url = getStorageUrl(user.profile_url);
 
 		const userBase64 = Buffer.from(JSON.stringify(user)).toString('base64');
 		cookies.set('user_info', userBase64, {

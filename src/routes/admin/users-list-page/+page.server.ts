@@ -6,4 +6,3 @@ export const load: PageServerLoad = async (event) => {
 	const res = await authedGet(event, `/users?page=${page}`);
 	return { users: res.data.data, links: res.data.links, meta: res.data.meta };
 };
-

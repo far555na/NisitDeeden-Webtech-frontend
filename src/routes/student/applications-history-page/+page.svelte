@@ -82,7 +82,7 @@
 			</tr>
 		{/each}
 	{:else}
-		<tr class="no-hover h-24">
+		<tr class="no-hover h-[50vh]">
 			<td colspan="6" class="px-20 text-center text-neutral-500">ไม่มีข้อมูล</td>
 		</tr>
 	{/if}

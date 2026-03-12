@@ -8,6 +8,7 @@
 	import FilterDropdown from '$lib/components/FilterDropdown.svelte';
 	import { getStorageUrl } from '$lib/profile';
 	import CategoryBadge from '$lib/components/CategoryBadge.svelte';
+	import Pagination from '$lib/components/Pagination.svelte';
 
 	let { data }: { data: any } = $props();
 
@@ -137,6 +138,14 @@
 	function goToDetail(id: number) {
 		goto(`/committee/application-detail-page/${id}`);
 	}
+
+	function nextPage() {
+		goto(`/committee/applications-list-page?page=${data.meta.current_page + 1}`);
+	}
+
+	function prevPage() {
+		goto(`/committee/applications-list-page?page=${data.meta.current_page - 1}`);
+	}
 </script>
 
 <div class="flex justify-end pb-3">
@@ -212,8 +221,17 @@
 			</tr>
 		{/each}
 	{:else}
-		<tr class="no-hover h-24">
+		<tr class="no-hover h-[50vh]">
 			<td colspan={tableHeaders.length} class="px-20 text-center text-neutral-500">ไม่มีข้อมูล</td>
 		</tr>
 	{/if}
 </StyledTable>
+
+<Pagination
+	currentPage={data.meta.current_page}
+	lastPage={data.meta.last_page}
+	hasPrev={!!data.links.prev}
+	hasNext={!!data.links.next}
+	onPrev={prevPage}
+	onNext={nextPage}
+/>

@@ -12,6 +12,7 @@
 		getApplicationStatusColor,
 		getApplicationStatusLabel
 	} from '$lib/types/application-status';
+	import Pagination from '$lib/components/Pagination.svelte';
 
 	let { data }: { data: any } = $props();
 
@@ -142,6 +143,14 @@
 	function goToDetail(id: number) {
 		goto(`/committee/application-detail-page/${id}`);
 	}
+
+	function nextPage() {
+		goto(`/committee/all-applications-list-page?page=${data.meta.current_page + 1}`);
+	}
+
+	function prevPage() {
+		goto(`/committee/all-applications-list-page?page=${data.meta.current_page - 1}`);
+	}
 </script>
 
 <div class="flex justify-end pb-3">
@@ -214,17 +223,24 @@
 				{/if}
 				<!-- <td>{application.submitted_at}</td> -->
 				<td>
-					<span
-						class={`font-semibold ${getApplicationStatusColor(application.status)}`}
-					>
+					<span class={`font-semibold ${getApplicationStatusColor(application.status)}`}>
 						{application.status_th}
 					</span>
 				</td>
 			</tr>
 		{/each}
 	{:else}
-		<tr class="no-hover h-24">
+		<tr class="no-hover h-[50vh]">
 			<td colspan={tableHeaders.length} class="px-20 text-center text-neutral-500">ไม่มีข้อมูล</td>
 		</tr>
 	{/if}
 </StyledTable>
+
+<Pagination
+	currentPage={data.meta.current_page}
+	lastPage={data.meta.last_page}
+	hasPrev={!!data.links.prev}
+	hasNext={!!data.links.next}
+	onPrev={prevPage}
+	onNext={nextPage}
+/>

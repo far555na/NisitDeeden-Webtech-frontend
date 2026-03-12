@@ -18,8 +18,8 @@
 		disabled={!hasPrev}
 		onclick={() => hasPrev && onPrev?.()}
 	>
-		<Icon slot="left" icon="mdi:chevron-double-left" width="16" />
-		<span class="text-sm">ย้อนกลับ</span>
+		<Icon slot="left" icon="mdi:chevron-left" width="24" />
+		<span>ย้อนกลับ</span>
 	</Button>
 
 	<span class="text-primary">
@@ -31,7 +31,7 @@
 		disabled={!hasNext}
 		onclick={() => hasNext && onNext?.()}
 	>
-		<Icon slot="right" icon="mdi:chevron-double-right" width="16" />
-		<span class="text-sm">ถัดไป</span>
+		<Icon slot="right" icon="mdi:chevron-right" width="24" />
+		<span>ถัดไป</span>
 	</Button>
 </div>

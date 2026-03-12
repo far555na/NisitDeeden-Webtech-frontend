@@ -2,6 +2,7 @@ import { authedGet } from '$lib/server/auth-helpers';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async (event) => {
+	const page = event.url.searchParams.get('page') ?? '1';
 	const categoryId = event.url.searchParams.get('category_id');
 	const department = event.url.searchParams.get('department');
 	const faculty = event.url.searchParams.get('faculty');
@@ -20,6 +21,10 @@ export const load: PageServerLoad = async (event) => {
 		params.set('faculty', faculty);
 	}
 
+	if (page) {
+		params.set('page', page);
+	}
+
 	const query = params.toString();
 	const endpoint = `/applications/by-position${query ? `?${query}` : ''}`;
 
@@ -30,6 +35,8 @@ export const load: PageServerLoad = async (event) => {
 
 	return {
 		applications: resApp.data.data,
+		links: resApp.data.links,
+		meta: resApp.data.meta,
 		categories: resCat.data.data,
 		departments: resDep.data.data,
 		faculties: resFac.data.data,

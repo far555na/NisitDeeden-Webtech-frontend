@@ -2,7 +2,7 @@
 	export let headers: string[] = [];
 </script>
 
-<div class="min-h-[65vh] rounded-2xl bg-neutral-50">
+<div class="rounded-2xl bg-neutral-50">
 	<table class="w-full overflow-hidden rounded-2xl border">
 		<thead class="bg-neutral-100 text-left">
 			<tr>

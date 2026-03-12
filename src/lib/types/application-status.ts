@@ -32,7 +32,7 @@ export function getApplicationStatusLabel(status: ApplicationStatusValue): strin
 export function getApplicationStatusColor(status: ApplicationStatusValue): string {
 	switch (status) {
 		case ApplicationStatus.PENDING:
-			return 'text-yellow-700';
+			return 'text-yellow-600';
 
 		case ApplicationStatus.REJECTED:
 			return 'text-red-500';

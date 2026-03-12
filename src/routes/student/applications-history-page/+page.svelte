@@ -1,7 +1,9 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import Button from '$lib/components/Button.svelte';
+	import CategoryBadge from '$lib/components/CategoryBadge.svelte';
 	import StyledTable from '$lib/components/StyledTable.svelte';
+	import { getApplicationStatusColor } from '$lib/types/application-status.js';
 	import Icon from '@iconify/svelte';
 
 	const { data } = $props();
@@ -29,8 +31,8 @@
 <StyledTable headers={['ปีการศึกษา', 'เทอม', 'ประเภท', 'วันที่ส่ง', 'สถานะ', '']}>
 	{#if data.applications && data.applications.length > 0}
 		{#each data.applications as application}
-			<tr 
-				class="cursor-pointer" 
+			<tr
+				class="cursor-pointer"
 				onclick={() => goToDetail(application.id)}
 				onkeydown={(e) => {
 					if (e.key === 'Enter' || e.key === ' ') {
@@ -40,16 +42,22 @@
 				}}
 				tabindex="0"
 			>
-				<td>{application.round.academic_year_th }</td>
+				<td>{application.round.academic_year_th}</td>
 				<td>{application.round.semester_th}</td>
-				<td>{application.category.name}</td>
+				<td><CategoryBadge name={application.category.name} icon={application.category.icon} /></td>
 				<td>{application.submitted_at}</td>
-				<td>{application.status_th}</td>
+				<td>
+					<span
+						class={`font-semibold ${getApplicationStatusColor(application.status)}`}
+					>
+						{application.status_th}
+					</span>
+				</td>
 				<td>
 					<div class="flex justify-end gap-2">
-						<div 
-							role="presentation" 
-							onclick={(e) => e.stopPropagation()} 
+						<div
+							role="presentation"
+							onclick={(e) => e.stopPropagation()}
 							onkeydown={(e) => e.stopPropagation()}
 						>
 							<Button variant="filled" type="button" onclick={() => goToEdit(application.id)}>
@@ -57,9 +65,9 @@
 							</Button>
 						</div>
 
-						<div 
-							role="presentation" 
-							onclick={(e) => e.stopPropagation()} 
+						<div
+							role="presentation"
+							onclick={(e) => e.stopPropagation()}
 							onkeydown={(e) => e.stopPropagation()}
 						>
 							<form method="POST" action="?/deleteApplication">

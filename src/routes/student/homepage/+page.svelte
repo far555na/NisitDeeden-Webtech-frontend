@@ -3,10 +3,10 @@
 	import Icon from '@iconify/svelte';
 </script>
 
-<div class="flex flex-col items-center justify-center pb-7">
+<!-- <div class="flex flex-col items-center justify-center pb-7">
 	<div class="text-primary text-6xl font-bold">00:00:00</div>
 	<div>หมดเขต dd MM yy</div>
-</div>
+</div> -->
 
 <div class="pb-7 text-3xl font-bold">โปรดเลือกทำรายการ</div>
 

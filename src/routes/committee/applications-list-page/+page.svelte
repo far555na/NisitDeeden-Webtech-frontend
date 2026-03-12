@@ -148,7 +148,12 @@
 	}
 </script>
 
-<div class="flex justify-end pb-3">
+<div class="mb-5 flex items-start justify-between gap-4">
+	<div>
+		<h1 class="text-3xl font-bold text-neutral-900">รายการใบสมัครที่รออนุมัติ</h1>
+		<p class="mt-1 text-sm text-neutral-500">แสดงเฉพาะใบสมัครที่รออนุมัติจากคุณ</p>
+	</div>
+
 	<div class="flex gap-3">
 		{#if canShowFaculty}
 			<FilterDropdown

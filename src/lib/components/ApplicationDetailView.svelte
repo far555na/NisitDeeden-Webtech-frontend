@@ -4,7 +4,7 @@
 	import FormField from '$lib/components/FormField.svelte';
 	import FileLink from '$lib/components/FileLink.svelte';
 	import Icon from '@iconify/svelte';
-	import background from '$lib/assets/background.png';
+	import { getStorageUrl } from '$lib/profile';
 
 	export let application: any;
 
@@ -30,7 +30,7 @@
 	<div class="md:w-2/3">
 		<div class="flex w-full flex-wrap gap-10">
 			<div>
-				<img class="h-auto w-3xs" src={background} alt="background" />
+				<img class="h-auto w-3xs" src={getStorageUrl(user.profile_path)} alt="background" />
 			</div>
 
 			<div class="min-w-xs flex-1">
@@ -88,7 +88,6 @@
 			{/each}
 		</div>
 
-        <slot name="actions" />
-		
+		<slot name="actions" />
 	</div>
 </div>

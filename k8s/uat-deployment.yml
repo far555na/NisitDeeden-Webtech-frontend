@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nisit-deeden-sveltekit-uat
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nisit-deeden-sveltekit-uat
+  template:
+    metadata:
+      labels:
+        app: nisit-deeden-sveltekit-uat
+    spec:
+      containers:
+        - name: app
+          image: ${DOCKER_USERNAME}/nisit-deeden-sveltekit-uat:latest
+          ports:
+            - containerPort: 80
+          imagePullPolicy: Always

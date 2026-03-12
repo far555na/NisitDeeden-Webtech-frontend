@@ -1,12 +1,12 @@
-name: Docker Image Production
+name: Docker Image UAT
 on:
   push:
-    branches: ['main']
+    branches: ['uat']
 
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
-    environment: production
+    environment: uat
     permissions:
       id-token: write
       contents: read
@@ -29,7 +29,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
-          file: ./docker/prod.Dockerfile
+          file: ./docker/uat.Dockerfile
           push: true
           platforms: linux/amd64,linux/arm64
           build-args: |
@@ -38,7 +38,7 @@ jobs:
             VITE_GOOGLE_CLIENT_ID=${{ vars.VITE_GOOGLE_CLIENT_ID }}
             VITE_GOOGLE_OAUTH_CALLBACK_URL=${{ vars.VITE_GOOGLE_OAUTH_CALLBACK_URL }}
           tags: |
-            ${{ secrets.DOCKER_USERNAME }}/nisit-deeden-sveltekit:latest
+            ${{ secrets.DOCKER_USERNAME }}/nisit-deeden-sveltekit-uat:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
   deploy:
@@ -61,8 +61,8 @@ jobs:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
         shell: bash
         run: |
-          envsubst < k8s/production-deployment.yml | kubectl apply -f -
-          kubectl apply -f k8s/production-service.yml
+          envsubst < k8s/uat-deployment.yml | kubectl apply -f -
+          kubectl apply -f k8s/uat-service.yml
 
-          kubectl rollout restart deployment/nisit-deeden-sveltekit
-          kubectl rollout status deployment/nisit-deeden-sveltekit
+          kubectl rollout restart deployment/nisit-deeden-sveltekit-uat
+          kubectl rollout status deployment/nisit-deeden-sveltekit-uat

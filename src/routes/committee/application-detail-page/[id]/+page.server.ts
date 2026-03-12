@@ -36,7 +36,7 @@ export const actions: Actions = {
 
 		try {
 			await authedPatch(event, `/applications/${id}/status`, {
-				action: 'reject',
+				action: 'rejected',
 				rejection_reason: reject_reason
 			});
 

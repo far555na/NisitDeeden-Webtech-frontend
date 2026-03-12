@@ -23,14 +23,14 @@
 <div class="flex min-h-[80vh] items-center justify-center px-4">
 	<div class="w-full max-w-md rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">
 		<div class="mb-8 text-center">
-			<h1 class="mb-2 text-3xl font-bold text-slate-900">Welcome Back</h1>
+			<h1 class="mb-2 text-3xl font-bold text-slate-900">ยินดีต้อนรับ</h1>
 			<p class="text-slate-500">กรุณาเข้าสู่ระบบเพื่อดำเนินการต่อ</p>
 		</div>
 
 		<form method="POST" use:enhance={handleLogin} class="space-y-5">
 			<div>
 				<label for="email" class="mb-1 block text-sm font-medium text-slate-700">
-					Email Address
+					อีเมล
 				</label>
 				<input
 					type="email"
@@ -46,7 +46,7 @@
 
 			<div>
 				<label for="password" class="mb-1 block text-sm font-medium text-slate-700">
-					Password
+					รหัสผ่าน
 				</label>
 				<input
 					type="password"
@@ -77,7 +77,7 @@
 			<button
 				type="submit"
 				disabled={isLoading}
-				class="mt-2 flex w-full items-center justify-center gap-2 rounded-lg bg-blue-600 py-2.5 font-medium text-white transition-colors hover:bg-blue-700 disabled:bg-blue-300"
+				class="mt-2 flex w-full items-center justify-center gap-2 rounded-lg bg-primary py-2.5 font-medium text-white transition-colors"
 			>
 				{#if isLoading}
 					<svg
@@ -98,9 +98,9 @@
 							d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
 						></path></svg
 					>
-					Signing in...
+					กำลังเข้าสู่ระบบ...
 				{:else}
-					Sign In
+					เข้าสู่ระบบ
 				{/if}
 			</button>
 		</form>
@@ -110,7 +110,7 @@
 				<span class="w-full border-t border-slate-200"></span>
 			</div>
 			<div class="relative flex justify-center text-xs uppercase">
-				<span class="bg-white px-2 text-slate-500">Or continue with</span>
+				<span class="bg-white px-2 text-slate-500">หรือเข้าสู่ระบบด้วย</span>
 			</div>
 		</div>
 

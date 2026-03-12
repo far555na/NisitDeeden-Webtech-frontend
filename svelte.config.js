@@ -5,9 +5,7 @@ import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 const config = {
 	preprocess: vitePreprocess(),
 	kit: {
-		adapter: adapter({
-			bodySizeLimit: '30m'
-		}),
+		adapter: adapter(),
 		csrf: {
 			checkOrigin: false
 		}

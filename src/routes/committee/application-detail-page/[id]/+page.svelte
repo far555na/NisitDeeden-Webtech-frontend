@@ -32,24 +32,37 @@
 			target.close();
 		}
 	}
+
+	const canTakeAction = $derived(
+		(data.user?.position === 'head_of_department' && data.application?.status === 'PENDING') ||
+			(data.user?.position === 'associate_dean' &&
+				data.application?.status === 'APPROVED_BY_DEPARTMENT') ||
+			(data.user?.position === 'dean' &&
+				data.application?.status === 'APPROVED_BY_ASSOCIATE_DEAN') ||
+			(data.user?.position === 'committee_member' &&
+				data.application?.status === 'APPROVED_BY_DEAN')
+	);
 </script>
 
 <ApplicationDetailView application={data.application}>
 	<svelte:fragment slot="actions">
-		<div class="flex flex-col gap-5">
-			<form method="POST" action="?/reject" class="w-full">
-				<Button variant="outlineRed" fullWidth type="button" onclick={openRejectDialog}>
-					<Icon slot="left" icon="mdi:close" class="text-red-500" width="24" />
-					ไม่เห็นชอบ
-				</Button>
-			</form>
-			<form method="POST" action="?/approve" class="w-full">
-				<Button variant="outline" type="submit" fullWidth>
-					<Icon slot="left" icon="mdi:check" class="text-primary" width="24" />
-					เห็นชอบ
-				</Button>
-			</form>
-		</div>
+		{#if canTakeAction}
+			<div class="flex flex-col gap-5">
+				<form method="POST" action="?/reject" class="w-full">
+					<Button variant="outlineRed" fullWidth type="button" onclick={openRejectDialog}>
+						<Icon slot="left" icon="mdi:close" class="text-red-500" width="24" />
+						ไม่เห็นชอบ
+					</Button>
+				</form>
+
+				<form method="POST" action="?/approve" class="w-full">
+					<Button variant="outline" type="submit" fullWidth>
+						<Icon slot="left" icon="mdi:check" class="text-primary" width="24" />
+						เห็นชอบ
+					</Button>
+				</form>
+			</div>
+		{/if}
 	</svelte:fragment>
 </ApplicationDetailView>
 

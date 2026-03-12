@@ -24,6 +24,7 @@
 		<Icon slot="left" icon="mdi:arrow-left" class="text-primary" width="24" />
 		ย้อนกลับ
 	</Button>
+	
 </div>
 
 <div class="flex flex-wrap gap-20">
@@ -50,12 +51,12 @@
 						value={user.name ?? ''}
 						readonly
 					/>
-					<FormField id="faculty" name="faculty" label="คณะ" value={user.faculty ?? ''} readonly />
+					<FormField id="faculty" name="faculty" label="คณะ" value={user.faculty_th ?? ''} readonly />
 					<FormField
 						id="department"
 						name="department"
 						label="ภาควิชา"
-						value={user.department ?? ''}
+						value={user.department_th ?? ''}
 						readonly
 					/>
 					<FormField id="email" name="email" label="อีเมล" value={user.email ?? ''} readonly />

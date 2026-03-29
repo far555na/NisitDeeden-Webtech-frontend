@@ -4,6 +4,7 @@
 	export let fullWidth = false;
 	export let disabled = false;
 	export let onclick: ((e: MouseEvent) => void) | undefined = undefined;
+	export let buttonClass: string = '';
 
 	const baseClass =
 		'flex h-min items-center justify-center gap-2 rounded-2xl px-5 py-3 font-medium transition hover:cursor-pointer';
@@ -33,7 +34,7 @@
 	{type}
 	{disabled}
 	{...$$restProps}
-	class={`${baseClass} ${variantClass} ${widthClass} ${disabledClass} ${$$props.class ?? ''}`}
+	class={`${buttonClass} ${baseClass} ${variantClass} ${widthClass} ${disabledClass}  ${$$props.class ?? ''}`}
 	on:click={handleClick}
 >
 	<slot name="left" />

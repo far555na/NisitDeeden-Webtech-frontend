@@ -19,8 +19,8 @@
 			<p class="mt-1 text-sm text-neutral-500">จัดการระยะเวลาสำหรับการส่งใบสมัครของนิสิต</p>
 		</div>
 
-		<Button variant="primary" class="px-10" onclick={gotoCreate}>
-			<Icon slot="left" icon="mdi:plus" class="text-primary" width="24" />
+		<Button variant="primary" class="px-10" onclick={gotoCreate} buttonClass="bg-primary text-white">
+			<Icon slot="left" icon="mdi:plus" class="text-white" width="24" />
 			เพิ่มรอบสมัคร
 		</Button>
 	</div>

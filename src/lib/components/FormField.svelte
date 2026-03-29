@@ -12,12 +12,13 @@
 
 	// ถ้าอยากกำหนดกว้างเอง เช่น "w-sm" หรือ "w-full"
 	export let wrapperClass: string = 'w-full';
+	export let labelClass: string = 'w-full';
 	export let inputClass: string = '';
 </script>
 
 <div class={`flex flex-col ${wrapperClass}`}>
 	<div class="flex items-baseline gap-1">
-		<label for={id} class="mb-1">{label}</label>
+		<label for={id} class={`mb-1 ${labelClass}`}>{label}</label>
 		{#if required}
 			<div class="text-red-500">*</div>
 		{/if}

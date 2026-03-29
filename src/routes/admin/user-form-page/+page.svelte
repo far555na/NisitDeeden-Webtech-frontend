@@ -101,7 +101,7 @@
 			<img class="h-80 w-3xs object-cover pb-5" src={previewUrl ?? background} alt="background" />
 			<input
 				id="profile_picture"
-				name="profile_picture"
+				name="photo"
 				type="file"
 				accept="image/*"
 				onchange={handleFileChange}

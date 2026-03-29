@@ -9,7 +9,8 @@
 
 	const navItems = [
 		{ label: 'ใบสมัคร', href: '/admin/applications-list-page' },
-		{ label: 'บัญชีผู้ใช้', href: '/admin/users-list-page' }
+		{ label: 'บัญชีผู้ใช้', href: '/admin/users-list-page' },
+		{ label: 'รอบสมัตร', href: '/admin/round-list-page' }
 
 		// { label: 'หลักเกณฑ์', href: '/student/criteria-page' }
 	];

@@ -29,7 +29,7 @@
 	>
 		{#each rounds as round}
 			<div
-				class="relative flex size-75 flex-col justify-between rounded-4xl border-3 border-primary p-8 hover:-translate-y-1 hover:shadow-md"
+				class="relative flex size-75 flex-col justify-between rounded-4xl border-2 border-primary p-8 hover:-translate-y-1 hover:shadow-md"
 			>
 				<div class="flex flex-col gap-4">
 					<div

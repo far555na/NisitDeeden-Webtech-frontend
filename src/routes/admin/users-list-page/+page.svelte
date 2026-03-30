@@ -28,8 +28,8 @@
 </script>
 
 <div class="flex justify-between pb-3">
-	<Button type="button" onclick={goToCreate}>
-		<Icon slot="left" icon="mdi:arrow-left" class="text-primary" width="24" />
+	<Button variant="filled" class="px-10" onclick={goToCreate} buttonClass="bg-primary text-white">
+		<Icon slot="left" icon="mdi:plus" class="text-white" width="24" />
 		เพิ่มผู้ใช้งาน
 	</Button>
 </div>

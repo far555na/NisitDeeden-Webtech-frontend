@@ -10,6 +10,10 @@
 	function gotoCreate() {
 		goto(`/admin/round-form-page`);
 	}
+
+	function gotoEdit(id: number) {
+		goto(`/admin/round-form-page/${id}`);
+	}
 </script>
 
 <div class="mx-auto max-w-7xl">
@@ -19,7 +23,7 @@
 			<p class="mt-1 text-sm text-neutral-500">จัดการระยะเวลาสำหรับการส่งใบสมัครของนิสิต</p>
 		</div>
 
-		<Button variant="primary" class="px-10" onclick={gotoCreate} buttonClass="bg-primary text-white">
+		<Button variant="filled" class="px-10" onclick={gotoCreate} buttonClass="bg-primary text-white">
 			<Icon slot="left" icon="mdi:plus" class="text-white" width="24" />
 			เพิ่มรอบสมัคร
 		</Button>
@@ -60,6 +64,21 @@
 							<span>{round.end_time_th}</span>
 						</div>
 					</div>
+				</div>
+
+				<div class="absolute right-4 bottom-4 flex items-center gap-2">
+					<Button variant="primary" buttonClass="!p-3" onclick={() => gotoEdit(round.id)}>
+						แก้ไข
+					</Button>
+
+					{#if round.applications_count === 0}
+						<form method="POST" action="?/deleteRound">
+							<input type="hidden" name="id" value={round.id} />
+							<Button variant="primary" buttonClass="!p-3 text-red-500" type="submit">ลบ</Button>
+						</form>
+					{:else}
+						<!-- <span class="text-xs text-neutral-400">ลบไม่ได้</span> -->
+					{/if}
 				</div>
 			</div>
 		{/each}

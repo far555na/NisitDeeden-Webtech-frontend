@@ -10,7 +10,7 @@
 		'flex h-min items-center justify-center gap-2 rounded-2xl px-5 py-3 font-medium transition hover:cursor-pointer';
 
 	$: variants = {
-		primary: disabled ? 'text-neutral-300' : 'text-primary',
+		primary: disabled ? 'text-neutral-300' : 'text-primary hover:underline',
 		outline: disabled
 			? 'border-2 border-neutral-300 text-neutral-300'
 			: 'border-2 border-primary text-primary',
@@ -34,7 +34,7 @@
 	{type}
 	{disabled}
 	{...$$restProps}
-	class={`${buttonClass} ${baseClass} ${variantClass} ${widthClass} ${disabledClass}  ${$$props.class ?? ''}`}
+	class={`${baseClass} ${variantClass} ${widthClass} ${disabledClass}  ${buttonClass}  ${$$props.class ?? ''}`}
 	on:click={handleClick}
 >
 	<slot name="left" />

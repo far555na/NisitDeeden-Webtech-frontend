@@ -18,7 +18,7 @@
 	<p class="mt-1 text-sm text-neutral-500 pb-5">เพิ่ม ลบ หรือแก้ไขประเภทรางวัล</p>
 	<Button variant="filled" class="px-10" onclick={gotoCreate} buttonClass="bg-primary text-white">
 		<Icon slot="left" icon="mdi:plus" class="text-white" width="24" />
-		เพิ่มรอบสมัคร
+		เพิ่มประเภทรางวัล
 	</Button>
 </div>
 

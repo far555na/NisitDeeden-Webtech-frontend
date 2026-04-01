@@ -10,6 +10,7 @@
 
 	const { data, form } = $props();
 
+	const errors = $derived(form?.errors ?? {});
 	let openDropdown = $state<string | null>(null);
 
 	function toggleDropdown(name: string) {
@@ -130,9 +131,41 @@
 			<div class="pb-5 text-xl font-semibold text-primary">ข้อมูลส่วนตัว</div>
 
 			<FormGrid cols={2}>
-				<FormField id="student_id" name="university_id" label="รหัสนิสิต" />
-				<FormField id="student_name" name="name" label="ชื่อ-นามสกุล" />
-				<FormField id="email" name="email" label="อีเมล" />
+				<div>
+					<FormField
+						id="student_id"
+						name="university_id"
+						label="รหัสนิสิต"
+						value={typeof form?.data?.university_id === 'string' ? form.data.university_id : ''}
+					/>
+					{#if errors.university_id}
+						<p class="mt-1 text-sm text-red-500">{errors.university_id[0]}</p>
+					{/if}
+				</div>
+
+				<div>
+					<FormField
+						id="student_name"
+						name="name"
+						label="ชื่อ-นามสกุล"
+						value={typeof form?.data?.name === 'string' ? form.data.name : ''}
+					/>
+					{#if errors.name}
+						<p class="mt-1 text-sm text-red-500">{errors.name[0]}</p>
+					{/if}
+				</div>
+
+				<div class="col-span-2">
+					<FormField
+						id="email"
+						name="email"
+						label="อีเมล"
+						value={typeof form?.data?.email === 'string' ? form.data.email : ''}
+					/>
+					{#if errors.email}
+						<p class="mt-1 text-sm text-red-500">{errors.email[0]}</p>
+					{/if}
+				</div>
 			</FormGrid>
 
 			<div class="py-5 text-xl font-semibold text-primary">ตำแหน่ง</div>
@@ -156,6 +189,10 @@
 				{/each}
 			</div>
 
+			{#if errors.position}
+				<p class="mt-2 text-sm text-red-500">{errors.position[0]}</p>
+			{/if}
+
 			{#if showFaculty || showDepartment}
 				<div class="py-5 text-xl font-semibold text-primary">หน่วยงาน</div>
 
@@ -172,6 +209,10 @@
 								onValueChange={(v) => (selectedFaculty = v)}
 							/>
 							<input type="hidden" name="faculty" value={selectedFaculty} />
+
+							{#if errors.faculty}
+								<p class="text-sm text-red-500">{errors.faculty[0]}</p>
+							{/if}
 						</div>
 					{/if}
 
@@ -188,6 +229,10 @@
 								disabled={isDepartmentDisabled}
 							/>
 							<input type="hidden" name="department" value={selectedDepartment} />
+
+							{#if errors.department}
+								<p class="text-sm text-red-500">{errors.department[0]}</p>
+							{/if}
 						</div>
 					{/if}
 				</div>

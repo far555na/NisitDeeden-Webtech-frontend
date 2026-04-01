@@ -7,6 +7,7 @@
 	import Pagination from '$lib/components/Pagination.svelte';
 	import { getStorageUrl } from '$lib/profile.js';
 	import type { PageProps } from './$types';
+	import { getUserPositionLabel } from '$lib/types/user-position';
 
 	let { data }: PageProps = $props();
 
@@ -147,10 +148,7 @@
 					<p class="font-medium text-neutral-900">{selectedUser.position_th ?? '-'}</p>
 				</div>
 
-				<div>
-					<p class="text-sm text-neutral-400">ประเภทผู้ใช้</p>
-					<p class="font-medium text-neutral-900">{selectedUser.role ?? '-'}</p>
-				</div>
+
 
 				<div>
 					<p class="text-sm text-neutral-400">คณะ</p>

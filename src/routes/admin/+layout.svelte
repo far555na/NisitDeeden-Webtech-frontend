@@ -3,6 +3,7 @@
 	import favicon from '$lib/assets/favicon.svg';
 	import Navbar from '$lib/components/Navbar.svelte';
 	import { getStorageUrl } from '$lib/profile';
+	import { getUserPositionLabel } from '$lib/types/user-position';
 
 	let { children } = $props();
 	let user = $derived(page.data.user);
@@ -22,7 +23,7 @@
 <Navbar
 	{navItems}
 	userName={user?.name}
-	role={user?.role}
+	role={getUserPositionLabel(user?.position)}
 	profileURL={getStorageUrl(user?.profile_url)}
 />
 

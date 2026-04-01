@@ -31,6 +31,8 @@ export function getUserPositionLabel(position: UserPosition): string {
 			return 'นิสิต';
 		case USER_POSITION.STAFF:
 			return 'กองพัฒนานิสิต';
+		default:
+			return 'นิสิต';
 	}
 }
 

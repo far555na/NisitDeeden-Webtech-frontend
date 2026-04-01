@@ -123,9 +123,9 @@
 			{/if}
 		</div>
 	{:else}
-		<div class="rounded-3xl border border-dashed border-neutral-300 bg-neutral-50 p-6 text-neutral-500">
+		<!-- <div class="rounded-3xl border border-dashed border-neutral-300 bg-neutral-50 p-6 text-neutral-500">
 			ยังไม่มีใบสมัครที่กำลังดำเนินการ
-		</div>
+		</div> -->
 	{/if}
 
 	<div class="text-3xl font-bold">โปรดเลือกทำรายการ</div>

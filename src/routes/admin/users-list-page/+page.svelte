@@ -23,7 +23,7 @@
 	}
 
 	function goToEdit(id: number) {
-		goto(`/student/application-detail-page/${id}/edit`);
+		goto(`/admin/user-form-page/${id}`);
 	}
 </script>
 
@@ -47,8 +47,8 @@
 				</td>
 				<td>{user.university_id}</td>
 				<td>{user.position_th}</td>
-				<td>{user.faculty ?? '-'}</td>
-				<td>{user.department ?? '-'}</td>
+				<td>{user.faculty_th ?? '-'}</td>
+				<td>{user.department_th ?? '-'}</td>
 				<td>
 					<div class="flex justify-end gap-2">
 						<div

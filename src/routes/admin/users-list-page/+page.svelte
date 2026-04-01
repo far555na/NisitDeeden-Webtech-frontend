@@ -256,8 +256,16 @@
 				oninput={handleSearchInput}
 				onkeydown={handleSearchKeydown}
 				placeholder="ค้นหาชื่อ รหัสนิสิต หรืออีเมล"
-				class="w-full bg-transparent outline-none"
+				class="w-full border-none bg-transparent outline-none focus:ring-0 focus:outline-none"
 			/>
+			{#if searchText}
+				<button
+					onclick={() => (searchText = '')}
+					class="text-neutral-400 transition hover:text-red-400"
+				>
+					✕
+				</button>
+			{/if}
 		</div>
 	</div>
 

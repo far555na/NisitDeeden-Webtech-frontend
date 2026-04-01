@@ -57,6 +57,18 @@
 		selectedUser = data.users?.[0] ?? null;
 	});
 
+	const isFacultyDisabled = $derived(
+		selectedPosition === 'committee_member' || selectedPosition === 'staff'
+	);
+
+	const isDepartmentDisabled = $derived(
+		selectedPosition === 'associate_dean' ||
+			selectedPosition === 'dean' ||
+			selectedPosition === 'committee_member' ||
+			selectedPosition === 'staff' ||
+			selectedFaculty === 'all'
+	);
+
 	const faculties = data.faculties ?? [];
 	const departments = data.departments ?? [];
 	const positions = data.positions ?? [];
@@ -78,12 +90,24 @@
 	];
 
 	const filteredDepartments = $derived(
-		selectedFaculty !== 'all'
+		selectedFaculty !== 'all' && !isDepartmentDisabled
 			? departments.filter(
 					(department: Department) => department.faculty?.value === selectedFaculty
 				)
 			: []
 	);
+
+	$effect(() => {
+		if (selectedPosition === 'committee_member' || selectedPosition === 'staff') {
+			selectedFaculty = 'all';
+			selectedDepartment = 'all';
+			return;
+		}
+
+		if (selectedPosition === 'associate_dean' || selectedPosition === 'dean') {
+			selectedDepartment = 'all';
+		}
+	});
 
 	const departmentOptions = $derived([
 		{ label: 'ภาควิชาทั้งหมด', value: 'all' },
@@ -93,8 +117,6 @@
 		}))
 	]);
 
-	const isDepartmentDisabled = $derived(selectedFaculty === 'all');
-
 	$effect(() => {
 		if (selectedFaculty === 'all') {
 			selectedDepartment = 'all';
@@ -103,9 +125,7 @@
 
 		if (
 			selectedDepartment !== 'all' &&
-			!filteredDepartments.some(
-				(department: Department) => department.value === selectedDepartment
-			)
+			!filteredDepartments.some((department: Department) => department.value === selectedDepartment)
 		) {
 			selectedDepartment = 'all';
 		}
@@ -126,13 +146,13 @@
 			params.delete('position');
 		}
 
-		if (selectedFaculty !== 'all') {
+		if (!isFacultyDisabled && selectedFaculty !== 'all') {
 			params.set('faculty', selectedFaculty);
 		} else {
 			params.delete('faculty');
 		}
 
-		if (selectedDepartment !== 'all') {
+		if (!isDepartmentDisabled && selectedDepartment !== 'all') {
 			params.set('department', selectedDepartment);
 		} else {
 			params.delete('department');
@@ -171,6 +191,14 @@
 
 	function selectPosition(value: string) {
 		selectedPosition = value;
+
+		if (value === 'committee_member' || value === 'staff') {
+			selectedFaculty = 'all';
+			selectedDepartment = 'all';
+		} else if (value === 'associate_dean' || value === 'dean') {
+			selectedDepartment = 'all';
+		}
+
 		updateFilters('1');
 	}
 
@@ -204,8 +232,6 @@
 	function selectUser(user: any) {
 		selectedUser = user;
 	}
-
-	
 </script>
 
 <div class="mb-5 flex items-start justify-between gap-4">
@@ -251,6 +277,7 @@
 		onToggle={() => toggleDropdown('faculty')}
 		onClose={closeDropdown}
 		onValueChange={selectFaculty}
+		disabled={isFacultyDisabled}
 	/>
 
 	<FilterDropdown

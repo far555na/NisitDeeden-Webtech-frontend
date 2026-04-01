@@ -9,7 +9,7 @@
 	import type { PageProps } from './$types';
 	import { getUserPositionLabel } from '$lib/types/user-position';
 
-	let { data }: PageProps = $props();
+	let { data, form }: PageProps = $props();
 
 	let selectedUser = $state(data.users?.[0] ?? null);
 
@@ -46,7 +46,6 @@
 </div>
 
 <div class="grid grid-cols-1 gap-6 xl:grid-cols-[minmax(0,1fr)_360px]">
-	<!-- Left: table -->
 	<div class="min-w-0">
 		<StyledTable headers={['ผู้ใช้', 'รหัสประจำตัว', 'บทบาท', 'คณะ', 'ภาควิชา']}>
 			{#if data.users && data.users.length > 0}
@@ -117,8 +116,14 @@
 		</div>
 	</div>
 
-	<!-- Right: detail panel -->
 	<div class="h-fit rounded-2xl border border-neutral-200 bg-white p-5 shadow-sm">
+		{#if form?.message}
+					<div
+						class="mb-4 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700"
+					>
+						{form.message}
+					</div>
+				{/if}
 		{#if selectedUser}
 			<div class="flex flex-col items-center border-b border-neutral-200 pb-5 text-center">
 				<img
@@ -132,10 +137,18 @@
 
 				<div class="mt-4 flex gap-2">
 					<Button variant="filled" type="button" onclick={() => goToEdit(selectedUser.id)}>
-						<div class="text-neutral-950">แก้ไขข้อมูล</div>
+						<div class="text-neutral-950">แก้ไข</div>
 					</Button>
+					<form method="POST" action="?/deleteUser">
+						<input type="hidden" name="id" value={selectedUser.id} />
+						<Button variant="filled" type="submit">
+							<div class="text-neutral-950">ลบ</div>
+						</Button>
+					</form>
 				</div>
+			
 			</div>
+			
 
 			<div class="mt-5 space-y-4">
 				<div>
@@ -147,8 +160,6 @@
 					<p class="text-sm text-neutral-400">บทบาท</p>
 					<p class="font-medium text-neutral-900">{selectedUser.position_th ?? '-'}</p>
 				</div>
-
-
 
 				<div>
 					<p class="text-sm text-neutral-400">คณะ</p>

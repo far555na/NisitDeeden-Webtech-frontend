@@ -13,6 +13,9 @@
 	const channelName = userId ? `user.${userId}` : '';
 	const eventName = 'ApplicationStatusUpdated';
 
+	const hasOpenRound = data.hasOpenRound ?? false;
+	const openRound = data.openRound ?? null;
+
 	let latestMessage = $state('กำลังรอรับข้อความ...');
 	let isConnected = $state(false);
 
@@ -66,22 +69,6 @@
 </script>
 
 <div class="flex flex-col gap-8">
-	<!-- <div class="rounded-2xl border border-neutral-200 bg-white p-4 text-sm shadow-sm">
-		<div class="font-semibold text-neutral-800">สถานะการเชื่อมต่อ Realtime</div>
-		<div class="mt-2 flex flex-col gap-1 text-neutral-600">
-			<div>
-				Status:
-				<span class={isConnected ? 'font-semibold text-green-600' : 'font-semibold text-red-500'}>
-					{isConnected ? 'Connected' : 'Disconnected'}
-				</span>
-			</div>
-			<div>User ID: {userId ?? '-'}</div>
-			<div>Channel: {channelName || '-'}</div>
-			<div>Event: {eventName}</div>
-			<div class="break-words">Message: {latestMessage}</div>
-		</div>
-	</div> -->
-
 	{#if activeApplication}
 		<div class="rounded-3xl bg-primary/5 p-6">
 			<div class="mb-5 flex items-start justify-between gap-4">
@@ -122,19 +109,43 @@
 				</div>
 			{/if}
 		</div>
-	{:else}
-		<!-- <div class="rounded-3xl border border-dashed border-neutral-300 bg-neutral-50 p-6 text-neutral-500">
-			ยังไม่มีใบสมัครที่กำลังดำเนินการ
-		</div> -->
 	{/if}
 
 	<div class="text-3xl font-bold">โปรดเลือกทำรายการ</div>
 
+	{#if !hasOpenRound}
+		<div class="rounded-2xl border border-amber-200 bg-amber-50 px-5 py-4 text-amber-700">
+			<div class="flex items-start gap-3">
+				<Icon icon="mdi:clock-alert-outline" width="24" class="mt-0.5 shrink-0" />
+				<div>
+					<div class="font-semibold">ขณะนี้ยังไม่มีรอบสมัครที่เปิดอยู่</div>
+					<div class="mt-1 text-sm">
+						ระบบจะยังไม่อนุญาตให้สร้างใบสมัครใหม่ จนกว่าจะมีรอบสมัครเปิด
+					</div>
+				</div>
+			</div>
+		</div>
+	{/if}
+
 	<div class="flex flex-wrap gap-x-10 gap-y-7">
-		<Card href="/student/choose-category-page">
-			<Icon slot="icon" icon="lucide:circle-plus" class="text-primary" width="100" />
-			เสนอตัวเองเป็นนิสิตดีเด่น
-		</Card>
+		{#if hasOpenRound}
+			<Card href="/student/choose-category-page">
+				<Icon slot="icon" icon="lucide:circle-plus" class="text-primary" width="100" />
+				เสนอตัวเองเป็นนิสิตดีเด่น
+			</Card>
+		{:else}
+			<div
+				class="flex size-75 cursor-not-allowed flex-col items-center justify-center rounded-3xl border border-dashed border-neutral-300 bg-neutral-100 px-6 text-center opacity-70"
+			>
+				<Icon icon="lucide:circle-plus" class="text-neutral-400" width="100" />
+				<div class="mt-4 text-lg font-semibold text-neutral-500">
+					เสนอตัวเองเป็นนิสิตดีเด่น
+				</div>
+				<div class="mt-2 text-sm text-neutral-400">
+					ยังไม่สามารถทำรายการได้เนื่องจากไม่มีรอบสมัครที่เปิดอยู่
+				</div>
+			</div>
+		{/if}
 
 		<Card href="/student/applications-history-page">
 			<Icon slot="icon" icon="lucide:menu" class="text-primary" width="100" />

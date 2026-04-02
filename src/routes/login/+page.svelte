@@ -105,7 +105,7 @@
 			</button>
 		</form>
 
-		<div class="relative my-6">
+		<!-- <div class="relative my-6">
 			<div class="absolute inset-0 flex items-center">
 				<span class="w-full border-t border-slate-200"></span>
 			</div>
@@ -124,6 +124,6 @@
 				alt="Google"
 			/>
 			Google
-		</a>
+		</a> -->
 	</div>
 </div>

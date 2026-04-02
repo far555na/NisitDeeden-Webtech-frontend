@@ -33,7 +33,7 @@
 				<div class="group relative">
 
 					<div class="w-[300px]">
-						<Card href={`/student/category-form-page?category=${category.id}`}>
+						<Card>
 							<div class="flex min-h-[280px] flex-col items-center justify-center gap-3 px-6 py-8 text-center">
 								<Icon icon={category.icon} class="text-primary" width="72" />
 

@@ -20,3 +20,17 @@ export const load: PageServerLoad = async (event) => {
 		departments: departmentsRes.data.data
 	};
 };
+
+export const actions: Actions = {
+	default: async (event) => {
+		const formData = await event.request.formData();
+		const id = event.params.id;
+
+		formData.set('_method', 'PUT');
+
+		await authedPost(event, `/users/${id}`, formData);
+
+		// redirect ตรง ๆ ไม่ต้อง try/catch
+		throw redirect(303, '/admin/users-list-page');
+	}
+};

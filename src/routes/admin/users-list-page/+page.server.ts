@@ -57,7 +57,7 @@ export const actions: Actions = {
 			await authedDelete(event, `/users/${id}`);
 			throw redirect(303, '/admin/users-list-page');
 		} catch (err: any) {
-			const message = err?.response?.data?.message || err?.data?.message || 'Delete failed';
+			const message = err?.response?.data?.message || err?.data?.message;
 			return fail(err?.status ?? 500, { message });
 		}
 	}

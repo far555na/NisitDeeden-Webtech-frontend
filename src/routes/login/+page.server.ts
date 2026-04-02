@@ -1,0 +1,52 @@
+import { fail, redirect } from '@sveltejs/kit';
+import apiClient from '$lib/server/api-client.server';
+import type { Actions } from './$types';
+import { VITE_API_URL } from '$env/static/private';
+import { getStorageUrl } from '$lib/profile';
+
+export const actions: Actions = {
+	default: async ({ request, cookies }) => {
+		const formData = await request.formData();
+		const email = formData.get('email');
+		const password = formData.get('password');
+
+		let user: any;
+		let token: string;
+
+		try {
+			const response = await apiClient.post('/login', { email, password });
+
+			token = response.data.token;
+			user = response.data.user;
+			user.profile_url = getStorageUrl(user.profile_url);
+
+			cookies.set('token', token, {
+				path: '/',
+				httpOnly: true,
+				sameSite: 'lax',
+				secure: process.env.NODE_ENV === 'production',
+				maxAge: 60 * 60 * 24 * 7 // 7 days
+			});
+
+			const userBase64 = Buffer.from(JSON.stringify(user)).toString('base64');
+			cookies.set('user_info', userBase64, { path: '/', maxAge: 60 * 60 * 24 * 7 });
+		} catch (err: any) {
+			console.log(err);
+			return fail(401, { message: 'อีเมลหรือรหัสผ่านไม่ถูกต้อง' });
+		}
+
+		if (user.role === 'STUDENT') {
+			throw redirect(303, '/student/homepage');
+		}
+
+		if (user.role === 'COMMITTEE') {
+			throw redirect(303, '/committee/applications-list-page');
+		}
+
+		if (user.role === 'ADMIN') {
+			throw redirect(303, '/admin/applications-list-page');
+		}
+
+		throw redirect(303, '/');
+	}
+};

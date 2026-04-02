@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nisit-deeden-sveltekit
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-body-size: '30m'
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nisit-deeden-sveltekit
+  template:
+    metadata:
+      labels:
+        app: nisit-deeden-sveltekit
+    spec:
+      containers:
+        - name: app
+          image: ${DOCKER_USERNAME}/nisit-deeden-sveltekit:latest
+          ports:
+            - containerPort: 80
+          imagePullPolicy: Always

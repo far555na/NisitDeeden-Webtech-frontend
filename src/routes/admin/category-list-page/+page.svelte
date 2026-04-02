@@ -30,22 +30,56 @@
 	{#if data.categories && data.categories.length > 0}
 		{#each data.categories as category}
 			{#if category.is_active}
-				<div class="flex flex-col items-center gap-3">
-					<Card href={`/student/category-form-page?category=${category.id}`}>
-						<Icon slot="icon" icon={category.icon} class="text-primary" width="100" />
-						{category.name}
-					</Card>
+				<div class="group relative">
+
+					<div class="w-[300px]">
+						<Card href={`/student/category-form-page?category=${category.id}`}>
+							<div class="flex min-h-[280px] flex-col items-center justify-center gap-3 px-6 py-8 text-center">
+								<Icon icon={category.icon} class="text-primary" width="72" />
+
+								<h3 class="text-xl font-semibold text-primary">
+									{category.name}
+								</h3>
+
+								<p class="line-clamp-3 text-sm leading-6 text-neutral-500">
+									{category.description}
+								</p>
+
+								<p class="mt-2 text-sm text-neutral-400">
+									{category.applications_count} ใบสมัคร
+								</p>
+							</div>
+						</Card>
+					</div>
 
 					{#if category.applications_count === 0}
-						<div class="flex items-center gap-2">
-							<Button variant="primary" buttonClass="!p-3" onclick={() => gotoEdit(category.id)}>
-								แก้ไข
-							</Button>
+						<div
+							class="pointer-events-none absolute inset-0 flex items-center justify-center rounded-[32px] bg-black/35 opacity-0 transition-all duration-300 group-hover:opacity-100"
+						>
+							<div
+								class="pointer-events-auto flex items-center gap-4 rounded-full  px-4 py-3 "
+							>
+								<Button
+									variant="filled"
+									class="min-w-[88px]"
+									onclick={() => gotoEdit(category.id)}
+									buttonClass="bg-white text-neutral-900 hover:bg-neutral-100"
+								>
+									แก้ไข
+								</Button>
 
-							<form method="POST" action="?/deleteCategory">
-								<input type="hidden" name="id" value={category.id} />
-								<Button variant="primary" buttonClass="!p-3 text-red-500" type="submit">ลบ</Button>
-							</form>
+								<form method="POST" action="?/deleteCategory">
+									<input type="hidden" name="id" value={category.id} />
+									<Button
+										type="submit"
+										variant="filled"
+										class="min-w-[88px]"
+										buttonClass="bg-red-500 text-white hover:bg-red-600"
+									>
+										ลบ
+									</Button>
+								</form>
+							</div>
 						</div>
 					{/if}
 				</div>

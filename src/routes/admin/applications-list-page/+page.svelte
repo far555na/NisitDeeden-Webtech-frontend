@@ -76,18 +76,39 @@
 		}))
 	];
 
-	const filteredDepartments =
-		selectedFaculty !== 'all'
-			? departments.filter((department: Department) => department.faculty.value === selectedFaculty)
-			: departments;
+	const isDepartmentDisabled = $derived(selectedFaculty === 'all');
 
-	const departmentOptions = [
+	const filteredDepartments = $derived(
+		selectedFaculty !== 'all'
+			? departments.filter(
+					(department: Department) => department.faculty?.value === selectedFaculty
+				)
+			: []
+	);
+
+	const departmentOptions = $derived([
 		{ label: 'ภาควิชาทั้งหมด', value: 'all' },
 		...filteredDepartments.map((department: Department) => ({
 			label: department.label,
 			value: department.value
 		}))
-	];
+	]);
+
+	$effect(() => {
+		if (selectedFaculty === 'all') {
+			selectedDepartment = 'all';
+			return;
+		}
+
+		if (
+			selectedDepartment !== 'all' &&
+			!filteredDepartments.some(
+				(department: Department) => department.value === selectedDepartment
+			)
+		) {
+			selectedDepartment = 'all';
+		}
+	});
 
 	function buildQuery(page = '1') {
 		const params = new URLSearchParams();
@@ -100,7 +121,7 @@
 			params.set('faculty', selectedFaculty);
 		}
 
-		if (selectedDepartment !== 'all') {
+		if (!isDepartmentDisabled && selectedDepartment !== 'all') {
 			params.set('department', selectedDepartment);
 		}
 
@@ -109,28 +130,28 @@
 		return params.toString();
 	}
 
-	function updateFilters() {
-		goto(`/admin/applications-list-page?${buildQuery('1')}`);
+	function updateFilters(page = '1') {
+		goto(`/admin/applications-list-page?${buildQuery(page)}`, {
+			keepFocus: true,
+			replaceState: true,
+			noScroll: true
+		});
 	}
 
 	function selectCategory(value: string) {
 		selectedCategory = value;
-		updateFilters();
+		updateFilters('1');
 	}
 
 	function selectDepartment(value: string) {
 		selectedDepartment = value;
-		updateFilters();
+		updateFilters('1');
 	}
 
 	function selectFaculty(value: string) {
 		selectedFaculty = value;
 		selectedDepartment = 'all';
-		updateFilters();
-	}
-
-	function goBack() {
-		history.back();
+		updateFilters('1');
 	}
 
 	function goToDetail(id: number) {
@@ -138,11 +159,11 @@
 	}
 
 	function nextPage() {
-		goto(`/admin/applications-list-page?${buildQuery(String(data.meta.current_page + 1))}`);
+		updateFilters(String(data.meta.current_page + 1));
 	}
 
 	function prevPage() {
-		goto(`/admin/applications-list-page?${buildQuery(String(data.meta.current_page - 1))}`);
+		updateFilters(String(data.meta.current_page - 1));
 	}
 </script>
 
@@ -169,6 +190,7 @@
 			onToggle={() => toggleDropdown('department')}
 			onClose={closeDropdown}
 			onValueChange={selectDepartment}
+			disabled={isDepartmentDisabled}
 		/>
 
 		<FilterDropdown
